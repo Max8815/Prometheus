@@ -636,6 +636,151 @@
       line-height: 1.7;
     }
 
+    /* ─── HOW WE WORK ────────────────────────────────── */
+    #how-we-work {
+      background: var(--surface-2);
+    }
+
+    .hww-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-bottom: 56px;
+    }
+
+    .hww-top h2 { margin-bottom: 20px; }
+
+    .hww-top p {
+      font-size: 16px;
+      color: var(--ink-2);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .hww-top p strong { color: var(--ink); font-weight: 600; }
+
+    .hww-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .hww-card {
+      border-radius: var(--radius);
+      padding: 36px;
+    }
+
+    .hww-card.green {
+      background: #f0faf4;
+      border: 0.5px solid rgba(52, 199, 89, 0.25);
+    }
+
+    .hww-card.red {
+      background: #fff4f4;
+      border: 0.5px solid rgba(255, 59, 48, 0.2);
+    }
+
+    .hww-card-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      padding: 5px 12px;
+      border-radius: 980px;
+    }
+
+    .hww-card.green .hww-card-label {
+      color: #1a7f37;
+      background: rgba(52, 199, 89, 0.12);
+    }
+
+    .hww-card.red .hww-card-label {
+      color: #c0392b;
+      background: rgba(255, 59, 48, 0.1);
+    }
+
+    .hww-card-label::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+
+    .hww-card.green .hww-card-label::before { background: #34c759; }
+    .hww-card.red .hww-card-label::before { background: #ff3b30; }
+
+    .hww-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .hww-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .hww-card ul li {
+      font-size: 14px;
+      color: var(--ink-2);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      line-height: 1.5;
+    }
+
+    .hww-card.green ul li::before {
+      content: '';
+      width: 5px; height: 5px;
+      min-width: 5px;
+      background: #34c759;
+      border-radius: 50%;
+      margin-top: 7px;
+    }
+
+    .hww-card.red ul li::before {
+      content: '';
+      width: 5px; height: 5px;
+      min-width: 5px;
+      background: #ff3b30;
+      border-radius: 50%;
+      margin-top: 7px;
+    }
+
+    .hww-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .hww-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-2);
+      background: var(--surface);
+      border: 0.5px solid var(--border-strong);
+      padding: 6px 14px;
+      border-radius: 980px;
+    }
+
+    .hww-tag .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
     /* ─── INSIGHT BAND ────────────────────────────────── */
     #insight {
       background: var(--surface);
@@ -801,6 +946,7 @@
     /* ─── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 900px) {
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hww-top { grid-template-columns: 1fr; gap: 48px; }
       .insight-inner { grid-template-columns: 1fr; }
       .process-grid { grid-template-columns: 1fr; gap: 48px; }
       .process-grid::after { display: none; }
@@ -832,6 +978,7 @@
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
+        <li><a href="#how-we-work">How We Work</a></li>
         <li><a href="#team">Team</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#cta" class="nav-cta">Book Free Call</a></li>
@@ -1012,6 +1159,66 @@
     </div>
   </section>
 
+  <!-- HOW WE WORK -->
+  <section id="how-we-work">
+    <div class="section-inner">
+      <p class="eyebrow">How We Work</p>
+      <div class="hww-top">
+        <div>
+          <h2>AI-accelerated.<br>Security-uncompromised.</h2>
+          <p>We use the latest tools and AI to move fast where speed creates value — <strong>rapid prototyping, UI/UX iteration, research, and design exploration.</strong> A fintech product that looks polished and ships quickly is a real advantage.</p>
+          <p>But we draw a hard line. <strong>AI does not touch security architecture, cloud infrastructure, or compliance logic.</strong> Those are built by engineers following battle-tested best practices, reviewed by hand, and signed off by a senior auditor. No exceptions.</p>
+          <p>This distinction matters because most teams either ignore AI entirely or let it into places it shouldn't be. We've seen both end badly. The right answer is knowing exactly where the boundary sits.</p>
+        </div>
+        <div>
+          <div class="hww-split">
+            <div class="hww-card green">
+              <div class="hww-card-label">AI-assisted</div>
+              <h3>Where we leverage AI</h3>
+              <ul>
+                <li>Rapid UI prototyping and wireframing</li>
+                <li>Design exploration and font / colour iteration</li>
+                <li>Frontend component scaffolding</li>
+                <li>Regulatory research and documentation drafts</li>
+                <li>Test case generation and QA coverage</li>
+                <li>Code review assistance and refactoring suggestions</li>
+                <li>User story and spec writing</li>
+              </ul>
+            </div>
+            <div class="hww-card red">
+              <div class="hww-card-label">Human-only</div>
+              <h3>Where we don't use AI</h3>
+              <ul>
+                <li>Security architecture and threat modelling</li>
+                <li>Cloud infrastructure design and configuration</li>
+                <li>CI/CD pipeline and deployment automation</li>
+                <li>Encryption, key management, and access controls</li>
+                <li>Audit trail and compliance logic</li>
+                <li>KYC/AML rule engine implementation</li>
+                <li>Production incident response</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="eyebrow" style="margin-bottom:16px;">Technology we work with</p>
+      <div class="hww-stack">
+        <span class="hww-tag"><span class="dot"></span>TypeScript / Node.js</span>
+        <span class="hww-tag"><span class="dot"></span>React / Next.js</span>
+        <span class="hww-tag"><span class="dot"></span>Python</span>
+        <span class="hww-tag"><span class="dot"></span>PostgreSQL</span>
+        <span class="hww-tag"><span class="dot"></span>AWS / GCP / Azure</span>
+        <span class="hww-tag"><span class="dot"></span>Docker &amp; Kubernetes</span>
+        <span class="hww-tag"><span class="dot"></span>Terraform</span>
+        <span class="hww-tag"><span class="dot"></span>GitHub Actions</span>
+        <span class="hww-tag"><span class="dot"></span>Figma</span>
+        <span class="hww-tag"><span class="dot"></span>Claude / GPT-4o</span>
+        <span class="hww-tag"><span class="dot"></span>Cursor</span>
+        <span class="hww-tag"><span class="dot"></span>Stripe / Adyen</span>
+      </div>
+    </div>
+  </section>
+
   <!-- TEAM -->
   <section id="team">
     <div class="section-inner">
@@ -1108,6 +1315,7 @@
       <div class="footer-links">
         <a href="#about">About</a>
         <a href="#services">Services</a>
+        <a href="#how-we-work">How We Work</a>
         <a href="#team">Team</a>
         <a href="mailto:maxkostenko18@gmail.com">Contact</a>
       </div>
