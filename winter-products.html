@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winter Products — Compliance-First Software for the EU Market</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --blue: #0066ff;
+      --blue-dark: #0052cc;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-500: #737373;
+      --gray-700: #404040;
+      --radius: 8px;
+      --max-width: 1100px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0 24px;
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.3px;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--blue);
+    }
+
+    .nav-cta {
+      display: inline-block;
+      background: var(--blue);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: background 0.18s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--blue-dark);
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 96px 24px;
+    }
+
+    section:nth-child(even) {
+      background: var(--gray-100);
+    }
+
+    .section-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.8px;
+      margin-bottom: 48px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.2px;
+    }
+
+    #hero {
+      padding: 120px 24px 100px;
+      background: var(--white);
+    }
+
+    .hero-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--gray-700);
+      max-width: 620px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--blue);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.12s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .cards-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .cards-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .card:hover {
+      border-color: var(--blue);
+      box-shadow: 0 4px 24px rgba(0, 102, 255, 0.08);
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.7;
+    }
+
+    .card ul {
+      margin-top: 12px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .card ul li {
+      font-size: 14px;
+      color: var(--gray-700);
+      padding: 4px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .card ul li::before {
+      content: '—';
+      color: var(--blue);
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 102, 255, 0.08);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .card-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--blue);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .team-note {
+      margin-top: 32px;
+      padding: 24px 32px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius);
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.7;
+    }
+
+    .team-role {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(100% / 6);
+      right: calc(100% / 6);
+      height: 1px;
+      background: var(--gray-200);
+      z-index: 0;
+    }
+
+    .step {
+      padding: 0 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step:first-child {
+      padding-left: 0;
+    }
+
+    .step:last-child {
+      padding-right: 0;
+    }
+
+    .step-number {
+      width: 56px;
+      height: 56px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .step h3 {
+      font-size: 17px;
+      margin-bottom: 12px;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.7;
+    }
+
+    #cta {
+      background: var(--black);
+      text-align: center;
+    }
+
+    #cta h2 {
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    #cta p {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 17px;
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 32px 24px;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .footer-tag {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 2px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .cards-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .steps::before {
+        display: none;
+      }
+
+      .step {
+        padding: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      section {
+        padding: 72px 20px;
+      }
+
+      #hero {
+        padding: 80px 20px 72px;
+      }
+
+      .cards-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .cards-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+
+      .nav-inner {
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">Winter<span>.</span></a>
+      <a href="#cta" class="nav-cta">Book Free Call</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <span class="label">EU Market · Compliance-First</span>
+      <h1>Winter Products.<br>Built for Compliance.</h1>
+      <p class="hero-sub">We build winter products for the EU market — combining deep audit expertise with modern software delivery. From regulatory consulting to full product development, we help you ship with confidence.</p>
+      <a href="#cta" class="btn-primary">Book Free 30-Min Call</a>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="why">
+    <div class="section-inner">
+      <span class="label">Why Us</span>
+      <h2>Compliance and delivery.<br>No tradeoffs.</h2>
+      <div class="cards-2">
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3>Audit-Driven Compliance</h3>
+          <p>5 years of auditor experience means we don't bolt on compliance — we architect it in. We help you fulfill regulatory obligations from day one.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3>We Deliver Products, Not Hours</h3>
+          <p>We're not a body shop. We ship products. When you work with us, you get outcomes — working software that passes audit and reaches users.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-inner">
+      <span class="label">Services</span>
+      <h2>What we build<br>and how we help.</h2>
+      <div class="cards-4">
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3>Compliance &amp; Regulatory Consulting</h3>
+          <ul>
+            <li>Audit-ready documentation</li>
+            <li>Regulatory mapping (EU AI Act, MiCA, GDPR)</li>
+            <li>AML/KYC framework setup</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          </div>
+          <h3>Product Development</h3>
+          <ul>
+            <li>Full-cycle software development</li>
+            <li>Your PM + our auditor = compliant by design</li>
+            <li>Hybrid model: we build with you or for you</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          </div>
+          <h3>DevSecOps &amp; Cloud Infrastructure</h3>
+          <ul>
+            <li>Secure CI/CD pipeline setup</li>
+            <li>Cloud architecture (AWS/GCP/Azure)</li>
+            <li>Security-first deployment practices</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3>Extended Team (As Needed)</h3>
+          <ul>
+            <li>Frontend, UX/UI, QA/Testing</li>
+            <li>Scale your existing team on demand</li>
+            <li>No long-term commitments</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team">
+    <div class="section-inner">
+      <span class="label">Team</span>
+      <h2>The people behind<br>your product.</h2>
+      <div class="cards-2">
+        <div class="card">
+          <span class="team-role">Lead Auditor &amp; Product Manager</span>
+          <h3>Maksym Kostenko</h3>
+          <ul>
+            <li>5 years audit experience</li>
+            <li>Regulatory compliance (EU AI Act, MiCA, AML/KYC)</li>
+            <li>Bridges audit requirements with product delivery</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="team-role">Infrastructure &amp; Security</span>
+          <h3>DevSecOps Engineer</h3>
+          <ul>
+            <li>Secure cloud environments</li>
+            <li>CI/CD pipeline architecture</li>
+            <li>Security &amp; deployment automation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="team-note">
+        We also work with trusted external talents — <strong>Frontend Developers, UX/UI Designers, QA Engineers</strong> — as your project needs.
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK -->
+  <section id="process">
+    <div class="section-inner">
+      <span class="label">Process</span>
+      <h2>How we work.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Audit Your Requirements</h3>
+          <p>We map your regulatory obligations and product goals. No guesswork, no scope creep.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Build With Precision</h3>
+          <p>We develop your product with compliance baked in. You see working software early.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Deliver Audit-Ready</h3>
+          <p>Your product ships with the documentation and trails regulators expect.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="section-inner" style="text-align:center;">
+      <span class="label" style="color:rgba(255,255,255,0.45);">Get Started</span>
+      <h2>First 30 Minutes Are Free</h2>
+      <p>Book a call. Tell us what you're building. We'll tell you what's possible — no commitment, no pitch decks.</p>
+      <a href="mailto:maxkostenko18@gmail.com?subject=Free%2030-Min%20Call%20Request" class="btn-primary">Schedule Free Call</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 Winter Products</span>
+      <span class="footer-tag">Compliance-first software for the EU market.</span>
+    </div>
+  </footer>
+
+</body>
+</html>
