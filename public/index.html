@@ -1104,12 +1104,12 @@
       <div class="contact-form-wrap">
         <form id="contactForm">
           <div class="form-row">
-            <input type="text" placeholder="Your name" required />
-            <input type="email" placeholder="Work email" required />
+            <input type="text" id="fName" placeholder="Your name" required />
+            <input type="email" id="fEmail" placeholder="Work email" required />
           </div>
           <div class="form-row">
-            <input type="text" placeholder="Company name" />
-            <select>
+            <input type="text" id="fCompany" placeholder="Company name" />
+            <select id="fService">
               <option value="" disabled selected>What are you looking for?</option>
               <option>Process Audit</option>
               <option>Tool Implementation</option>
@@ -1118,9 +1118,10 @@
               <option>Not sure yet</option>
             </select>
           </div>
-          <textarea placeholder="Briefly describe your biggest process pain point..." style="margin-bottom: 12px;"></textarea>
+          <textarea id="fMessage" placeholder="Briefly describe your biggest process pain point..." style="margin-bottom: 12px;"></textarea>
           <button type="submit" class="btn-white">Book Free Discovery Call →</button>
           <p class="form-note">No spam. No sales calls. Reply within 24 hours.</p>
+          <p class="form-note">Prefer email? Write directly to <a href="mailto:maxkostenko18@gmail.com" style="color: rgba(255,255,255,0.6); text-decoration: underline;">maxkostenko18@gmail.com</a></p>
         </form>
       </div>
     </div>
@@ -1173,13 +1174,30 @@
     `;
     document.head.appendChild(style);
 
-    // Form submit
+    // Form submit — opens the visitor's email app with a pre-filled message
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      const name = document.getElementById('fName').value.trim();
+      const email = document.getElementById('fEmail').value.trim();
+      const company = document.getElementById('fCompany').value.trim();
+      const service = document.getElementById('fService').value;
+      const message = document.getElementById('fMessage').value.trim();
+
+      const subject = `Discovery call request — ${name}${company ? ' (' + company + ')' : ''}`;
+      const body = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        company ? `Company: ${company}` : null,
+        service ? `Interested in: ${service}` : null,
+        message ? `\nPain point:\n${message}` : null,
+      ].filter(Boolean).join('\n');
+
+      window.location.href = `mailto:maxkostenko18@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
       const toast = document.getElementById('toast');
+      toast.textContent = '✉ Opening your email app — just press Send';
       toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 4000);
-      this.reset();
+      setTimeout(() => toast.classList.remove('show'), 5000);
     });
 
     // Scroll fade-in
