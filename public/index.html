@@ -4,7 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MK Solution — Due Diligence, AI Agents &amp; ERP Migration</title>
-  <meta name="description" content="Financial due diligence, AI agent implementation, and ERP migration for Czech and EU small and mid-sized businesses. Ex-senior auditor, Prague-based. We find the root cause, then build the fix — from local, GDPR-safe AI agents to full ERP transitions." />
+  <meta name="description" content="Financial due diligence, AI agent implementation, and ERP migration for Czech and EU small and mid-sized businesses. Ex-senior auditor, Prague-based. Evidence first, then the systems to match." />
+  <link rel="canonical" href="https://mk4ai.com/" />
+
+  <!-- Social sharing (LinkedIn, Slack, WhatsApp) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mk4ai.com/" />
+  <meta property="og:site_name" content="MK Solution" />
+  <meta property="og:title" content="MK Solution — Due Diligence, AI Agents &amp; ERP Migration" />
+  <meta property="og:description" content="Ex-senior auditor in Prague. Financial due diligence, AI agent implementation, and ERP migration for Czech &amp; EU small and mid-sized businesses." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MK Solution — Due Diligence, AI Agents &amp; ERP Migration" />
+  <meta name="twitter:description" content="Ex-senior auditor in Prague. Financial due diligence, AI agent implementation, and ERP migration for Czech &amp; EU small and mid-sized businesses." />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230071e3'/%3E%3Ctext x='32' y='43' font-family='Helvetica,Arial,sans-serif' font-size='28' font-weight='600' fill='white' text-anchor='middle'%3EMK%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet" />
@@ -161,13 +174,13 @@
     }
 
     h1 {
-      font-size: clamp(40px, 7vw, 76px);
+      font-size: clamp(38px, 6vw, 66px);
       font-weight: 700;
       line-height: 1.05;
-      letter-spacing: -2.5px;
+      letter-spacing: -2.2px;
       color: var(--ink);
       margin-bottom: 24px;
-      max-width: 820px;
+      max-width: 960px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -732,6 +745,19 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .form-row { grid-template-columns: 1fr; }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: var(--nav-h); left: 0; right: 0;
+        background: rgba(255,255,255,0.97);
+        backdrop-filter: blur(20px);
+        padding: 24px;
+        border-bottom: 0.5px solid rgba(0,0,0,0.1);
+        gap: 20px;
+      }
+      .nav-links.open a { font-size: 17px; opacity: 1; }
     }
   </style>
 </head>
@@ -749,7 +775,7 @@
         <li><a href="#why">Why Us</a></li>
         <li><a href="#cta" class="nav-cta">Book Free Call</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -758,9 +784,9 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-eyebrow">Financial Due Diligence · AI Agent Implementation · ERP Migration</div>
-    <h1>We audit your chaos.<br>Then we <em>automate it.</em></h1>
-    <p class="hero-sub">Most companies don't have a technology problem — they have a process problem wearing a technology costume.</p>
-    <p class="hero-sub-small">Ex-senior auditor, based in Prague. We run financial due diligence, deploy AI agents wired into your real workflow, and lead ERP migrations for Czech &amp; EU small and mid-sized businesses.</p>
+    <h1>We audit the numbers.<br>Then we <em>rebuild the systems.</em></h1>
+    <p class="hero-sub">Pricing a deal, replacing an ERP, or putting AI to work — the failure mode is always the same: acting on numbers and processes nobody actually verified.</p>
+    <p class="hero-sub-small">Ex-senior auditor, based in Prague. Financial due diligence, AI agent implementation, and ERP migration for Czech &amp; EU small and mid-sized businesses.</p>
     <div class="hero-actions">
       <a href="#cta" class="btn-primary">Book Free 30-Min Call</a>
       <a href="#services" class="btn-secondary">
@@ -779,7 +805,7 @@
       </div>
       <div class="stat">
         <div class="stat-num">2<span>–3</span></div>
-        <div class="stat-label">Weeks per fixed-fee audit sprint</div>
+        <div class="stat-label">Weeks per fixed-fee due diligence sprint</div>
       </div>
       <div class="stat">
         <div class="stat-num">100<span>%</span></div>
@@ -806,7 +832,10 @@
             Then I asked a different question: <strong>what if we didn't just report the problems — what if we actually fixed them?</strong>
           </p>
           <p>
-            Today I combine deep process-audit expertise with hands-on implementation of modern software and AI automation. I don't just tell you what's broken. <strong>I rebuild it.</strong>
+            Today that splits into three things I do. I run <strong>financial due diligence</strong> when the numbers need to be independently verified — before a deal, a loan, or a change of ownership. I <strong>migrate companies off legacy ERP systems</strong> without losing data integrity on the way. And I <strong>build AI agents</strong> that plug into how a team already works.
+          </p>
+          <p>
+            Different engagements, one discipline: <strong>establish what's actually true before anyone acts on it.</strong>
           </p>
           <p style="font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-3); margin: 28px 0 10px;">Industries audited from the inside</p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;">
@@ -820,7 +849,7 @@
             <div style="width: 52px; height: 52px; min-width: 52px; border-radius: 50%; background: linear-gradient(135deg, #0071e3, #34aadc); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; letter-spacing: -0.5px;">MK</div>
             <div>
               <p style="font-size: 15px; font-weight: 600; color: var(--ink); margin: 0; letter-spacing: -0.2px;">Maksym Kostenko</p>
-              <p style="font-size: 13px; color: var(--ink-2); margin: 2px 0 4px; line-height: 1.5;">Founder · Ex-Senior Auditor · 5+ years dissecting how businesses actually run — now building the AI systems that fix them.</p>
+              <p style="font-size: 13px; color: var(--ink-2); margin: 2px 0 4px; line-height: 1.5;">Founder · Ex-Senior Auditor · 5+ years dissecting how businesses actually run — now verifying the numbers and rebuilding the systems behind them.</p>
               <a href="https://www.linkedin.com/in/maksym-kostenko-46720a135/" target="_blank" rel="noopener" style="font-size: 13px; font-weight: 500; color: var(--accent); text-decoration: none;">Connect on LinkedIn →</a>
             </div>
           </div>
@@ -832,8 +861,12 @@
             <p>We never arrive with a solution looking for a problem. Every recommendation is grounded in documented process analysis — not vendor incentives or fashionable tools.</p>
           </div>
           <div class="principle-card">
-            <h4>Implementation, not reports</h4>
-            <p>The audit is the starting point, not the deliverable. We stay accountable through implementation and don't hand off slide decks to your already-stretched team.</p>
+            <h4>Independent when it counts</h4>
+            <p>Due diligence work is exactly that — independent. The findings are the deliverable, with no obligation to build anything afterwards and no incentive for the answer to come out one way.</p>
+          </div>
+          <div class="principle-card">
+            <h4>Accountable through delivery</h4>
+            <p>On migration and automation work, the plan isn't the finish line. We stay on through cutover and go-live rather than handing a slide deck to your already-stretched team.</p>
           </div>
         </div>
       </div>
@@ -844,8 +877,8 @@
   <section id="services">
     <div class="section-inner">
       <p class="eyebrow">Services</p>
-      <h2>Three ways we<br>drive transformation.</h2>
-      <p class="section-desc">Every engagement starts with understanding your process — never with selling software. The right tool is determined by your reality, not ours.</p>
+      <h2>Three services.<br>One discipline.</h2>
+      <p class="section-desc">Each engagement starts with evidence — never with selling software. What gets recommended is determined by your reality, not by what we'd prefer to build.</p>
       <div class="services-grid">
 
         <div class="service-card">
@@ -924,48 +957,62 @@
   <section id="use-cases" style="background: var(--surface);">
     <div class="section-inner">
       <p class="eyebrow">Use Cases</p>
-      <h2>What we actually<br>build for you.</h2>
-      <p class="section-desc">From a single automation to a full internal AI stack — here's the kind of work we deliver.</p>
+      <h2>What engagements<br>actually look like.</h2>
+      <p class="section-desc">Two examples of each service — from an independent report on a live deal to an AI agent running inside your team's chat.</p>
       <div class="services-grid">
 
         <div class="service-card">
           <div class="icon-wrap">
-            <svg viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           </div>
-          <h3>Customer Service Chatbot</h3>
-          <p class="service-tagline">An AI assistant trained on your products, policies, and tone — handling enquiries, escalations, and FAQs around the clock without adding headcount.</p>
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Due Diligence</p>
+          <h3>Buy-Side Due Diligence</h3>
+          <p class="service-tagline">You're acquiring a company and need the numbers verified before you commit. Ledger and statement review, cash flow quality, hidden liabilities, and a written red-flag report you can take into the negotiation.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Due Diligence</p>
+          <h3>Sell-Side / Exit Readiness</h3>
+          <p class="service-tagline">You're preparing to sell or raise, and want the problems found by you rather than by the buyer's advisors. We stress-test your financials the way the other side will, so nothing surprises you mid-process.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M4 7v10c0 2 1.5 3 4 3h8c2.5 0 4-1 4-3V7c0-2-1.5-3-4-3H8C5.5 4 4 5 4 7z"/><path d="M9 12h6"/></svg>
+          </div>
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">ERP Migration</p>
+          <h3>Legacy ERP Replacement</h3>
+          <p class="service-tagline">Your current system is end-of-life, unsupported, or simply outgrown. We plan the cutover, migrate and reconcile the data to audit standards, and stay through go-live — so the opening balances actually tie out.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+          </div>
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">ERP Migration</p>
+          <h3>ERP Selection &amp; Readiness</h3>
+          <p class="service-tagline">Before you sign a licence. We map what your processes actually require, pressure-test vendor claims against them, and tell you honestly whether a migration is worth doing at all this year.</p>
         </div>
 
         <div class="service-card">
           <div class="icon-wrap">
             <svg viewBox="0 0 24 24"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           </div>
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">AI Agents</p>
           <h3>Internal AI Worker</h3>
-          <p class="service-tagline">A dedicated AI agent (built on OpenClaw) embedded in your team's workflow via Telegram, WhatsApp, or Slack — drafting documents, summarising meetings, researching suppliers, or handling repetitive back-office tasks autonomously. Runs on local models like Hermes for full privacy, or top-tier models via OpenRouter when the task needs more capability.</p>
+          <p class="service-tagline">An agent built on OpenClaw, reachable in Telegram, WhatsApp, or Slack — drafting documents, summarising meetings, researching suppliers, handling back-office tasks. Runs on a local model like Hermes when data can't leave the building, or a top-tier model via OpenRouter when the task needs the extra capability.</p>
         </div>
 
         <div class="service-card">
-          <div class="icon-wrap">
-            <svg viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-          </div>
-          <h3>AI Workflow Automation</h3>
-          <p class="service-tagline">Multi-step pipelines that connect your tools, process data, trigger actions, and report outcomes — without manual intervention at every step.</p>
-        </div>
-
-        <div class="service-card">
-          <div class="icon-wrap">
-            <svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-          </div>
-          <h3>Internal CRM</h3>
-          <p class="service-tagline">A lean, custom CRM built around how your team actually works — not a bloated off-the-shelf product. Contacts, pipelines, and activity tracking configured to your process from day one.</p>
-        </div>
-
-        <div class="service-card" style="grid-column: span 2;">
           <div class="icon-wrap">
             <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           </div>
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">AI Agents</p>
           <h3>Automated Invoice Processing</h3>
-          <p class="service-tagline">Invoices scanned, data extracted, and entries pushed directly into your accounting software — eliminating manual keying, reducing errors, and cutting processing time from hours to seconds. Works with scanned PDFs, email attachments, and supplier portals.</p>
+          <p class="service-tagline">Invoices scanned, data extracted, and entries pushed into your accounting system — cutting manual keying and the errors that come with it. Works with scanned PDFs, email attachments, and supplier portals.</p>
         </div>
 
       </div>
@@ -977,49 +1024,53 @@
     <div class="section-inner">
       <p class="eyebrow">How We Work</p>
       <h2>Four steps.<br>Zero guesswork.</h2>
-      <p class="section-desc" style="margin-bottom: 72px;">Our methodology is built from audit principles: evidence first, recommendations second, implementation always accountable.</p>
+      <p class="section-desc" style="margin-bottom: 72px;">The method comes from audit practice: evidence first, findings second, and delivery you can hold someone accountable for.</p>
       <div class="process-grid">
         <div class="process-step">
           <div class="step-num">01</div>
-          <h3>Audit</h3>
-          <p>We map your current processes end-to-end — interviews, data review, system walkthroughs. No assumptions. Pure evidence.</p>
+          <h3>Evidence</h3>
+          <p>Ledgers, contracts, systems, interviews — whatever the question requires. We document what is actually true before anyone forms a view.</p>
         </div>
         <div class="process-step">
           <div class="step-num">02</div>
-          <h3>Roadmap</h3>
-          <p>A prioritised transformation plan. Quick wins first, strategic changes next. Scoped, costed, and timeline-bound.</p>
+          <h3>Findings</h3>
+          <p>Written up, prioritised, and quantified. Red flags separated from noise, quick wins separated from structural work — so you can decide what deserves funding.</p>
         </div>
         <div class="process-step">
           <div class="step-num">03</div>
-          <h3>Implement</h3>
-          <p>We build and deploy — tools configured, automations live, your team trained. Full accountability for every deliverable.</p>
+          <h3>Build</h3>
+          <p>Migration executed, agents deployed, team trained. Scoped and priced per phase, with accountability for every deliverable.</p>
         </div>
         <div class="process-step">
           <div class="step-num">04</div>
-          <h3>Optimise</h3>
-          <p>Post-launch review, performance metrics, and iteration. We stay until the outcomes are real — not just reported.</p>
+          <h3>Verify</h3>
+          <p>Post-launch reconciliation and performance review. We stay until the outcomes are demonstrable — not merely reported.</p>
         </div>
       </div>
 
+      <p style="margin-top: 40px; font-size: 14px; color: var(--ink-2); line-height: 1.7; max-width: 720px;">
+        <strong style="color: var(--ink);">Due diligence engagements stop at step 2.</strong> The report is the deliverable, it is yours, and there is no expectation that you build anything with us afterwards. That independence is the point — findings shouldn't be shaped by whoever hopes to win the follow-on work.
+      </p>
+
       <div style="margin-top: 72px; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 36px 40px;">
-        <h3 style="font-size: 18px; font-weight: 600; letter-spacing: -0.4px; color: var(--ink); margin-bottom: 20px;">How engagements are structured</h3>
+        <h3 style="font-size: 18px; font-weight: 600; letter-spacing: -0.4px; color: var(--ink); margin-bottom: 20px;">How each engagement is structured</h3>
         <div class="tri-grid">
           <div>
-            <p style="font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 6px;">Audit Sprint</p>
-            <p style="font-size: 14px; color: var(--ink-2); line-height: 1.65;">2–3 weeks, fixed fee paid in advance. Interviews, data review, and system walkthroughs — you know the full cost before we begin.</p>
+            <p style="font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 6px;">Due Diligence Sprint</p>
+            <p style="font-size: 14px; color: var(--ink-2); line-height: 1.65;">2–3 weeks, fixed fee agreed in advance. Document review, management interviews, and a written findings report. Deal timelines are tight, so the end date is committed up front.</p>
           </div>
           <div>
-            <p style="font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 6px;">Roadmap</p>
-            <p style="font-size: 14px; color: var(--ink-2); line-height: 1.65;">Included in the sprint. A prioritised plan with scoped costs for each improvement — quick wins separated from strategic builds, so you decide what to fund.</p>
+            <p style="font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 6px;">ERP Migration</p>
+            <p style="font-size: 14px; color: var(--ink-2); line-height: 1.65;">Starts with a readiness review, then runs by milestone: selection, data migration and reconciliation, cutover, and post-go-live validation. Each phase priced and approved before it begins.</p>
           </div>
           <div>
-            <p style="font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 6px;">Implementation</p>
-            <p style="font-size: 14px; color: var(--ink-2); line-height: 1.65;">Scoped per project and billed by milestone. No open-ended retainers, no surprise invoices — each phase priced and approved before it starts.</p>
+            <p style="font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 6px;">AI Agent Implementation</p>
+            <p style="font-size: 14px; color: var(--ink-2); line-height: 1.65;">Scoped as a pilot first — one workflow, one measurable result — before anything is rolled out more widely. No open-ended retainers and no surprise invoices.</p>
           </div>
         </div>
         <div style="margin-top: 28px; padding: 18px 22px; background: var(--accent-light); border-radius: var(--radius-sm); display: flex; align-items: baseline; gap: 12px;">
-          <span style="font-size: 13px; font-weight: 700; color: var(--accent); white-space: nowrap;">AUDIT FREE IN EFFECT</span>
-          <p style="font-size: 14px; color: var(--ink); line-height: 1.65; margin: 0;">Decide to build the automation with us, and your full audit fee is credited against the implementation — <strong>the audit report effectively becomes free.</strong></p>
+          <span style="font-size: 13px; font-weight: 700; color: var(--accent); white-space: nowrap;">READINESS FEE CREDITED</span>
+          <p style="font-size: 14px; color: var(--ink); line-height: 1.65; margin: 0;">If an ERP readiness review or AI pilot leads to the full build, that fee is credited against the implementation. <strong>This does not apply to due diligence work</strong> — those findings stay independent of whether we ever work together again.</p>
         </div>
       </div>
     </div>
@@ -1035,7 +1086,7 @@
       <div class="insight-list">
         <div class="insight-item">
           <div class="num">1</div>
-          <p><strong>Process before technology.</strong> Buying software before understanding your process is how companies end up with expensive tools no one uses.</p>
+          <p><strong>Process before technology.</strong> Signing an ERP licence before understanding your process is how companies end up with expensive systems nobody uses.</p>
         </div>
         <div class="insight-item">
           <div class="num">2</div>
@@ -1043,7 +1094,7 @@
         </div>
         <div class="insight-item">
           <div class="num">3</div>
-          <p><strong>Outcomes, not deliverables.</strong> A gap report is not success. Reduced errors, faster cycles, and lower costs — that's what we're accountable to.</p>
+          <p><strong>Bad numbers beat no numbers to the decision.</strong> Most costly decisions aren't made without data — they're made on data nobody verified. Verification is cheaper than the mistake.</p>
         </div>
         <div class="insight-item">
           <div class="num">4</div>
@@ -1081,8 +1132,8 @@
           <p>You work directly with the expert, not an account manager. Senior-level attention on every project from discovery to final delivery.</p>
         </div>
         <div class="diff-card">
-          <h4>Measurable outcomes</h4>
-          <p>We define success metrics before we start. Every engagement closes with a before/after comparison — time saved, errors eliminated, cost reduced.</p>
+          <h4>Defensible conclusions</h4>
+          <p>Every finding traces back to a document, a figure, or a system you can check yourself. On build work we agree the success metric before starting and close with a before/after comparison.</p>
         </div>
         <div class="diff-card" style="grid-column: 1 / -1;">
           <h4>Right tool, right cost</h4>
@@ -1096,8 +1147,8 @@
   <section id="cta">
     <div class="section-inner">
       <p class="eyebrow">Get Started</p>
-      <h2>Ready to fix<br>what's broken?</h2>
-      <p>Book a free 30-minute discovery call. No pitch. No pressure. Just an honest conversation about where you are and where you want to be.</p>
+      <h2>Let's find out<br>what's actually true.</h2>
+      <p>Book a free 30-minute call — whether you have a deal to verify, an ERP to replace, or a process worth automating. No pitch, no pressure. If it isn't a fit, I'll say so.</p>
       <div class="contact-form-wrap">
         <form id="contactForm">
           <div class="form-row">
@@ -1142,34 +1193,18 @@
     <p class="footer-legal" style="margin-top: 8px;">MK Solution is a brand of DMK corporate s.r.o. &nbsp;·&nbsp; Mezilehlá 326/1, Hrdlořezy, 190 00 Praha 9 &nbsp;·&nbsp; IČO: 11782510</p>
   </footer>
 
-  <div id="toast">✓ Message sent — I'll be in touch within 24h</div>
+  <div id="toast" role="status" aria-live="polite">✓ Message sent — I'll be in touch within 24h</div>
 
   <script>
     // Mobile nav
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
-    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
-    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
-
-    // Mobile nav open styles
-    const style = document.createElement('style');
-    style.textContent = `
-      @media (max-width: 680px) {
-        .nav-links.open {
-          display: flex !important;
-          flex-direction: column;
-          position: fixed;
-          top: 52px; left: 0; right: 0;
-          background: rgba(255,255,255,0.97);
-          backdrop-filter: blur(20px);
-          padding: 24px;
-          border-bottom: 0.5px solid rgba(0,0,0,0.1);
-          gap: 20px;
-        }
-        .nav-links.open a { font-size: 17px; opacity: 1; }
-      }
-    `;
-    document.head.appendChild(style);
+    const setNav = open => {
+      navLinks.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+    };
+    hamburger.addEventListener('click', () => setNav(!navLinks.classList.contains('open')));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNav(false)));
 
     // Form submit — opens the visitor's email app with a pre-filled message
     document.getElementById('contactForm').addEventListener('submit', function(e) {
