@@ -776,6 +776,59 @@
 
     .roi-copy p { font-size: 15px; color: var(--ink-2); line-height: 1.7; }
 
+    /* ── CONTEXT COMPARISON ── */
+    .ctx-band {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 32px;
+      align-items: start;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      margin-bottom: 40px;
+    }
+
+    .ctx-num {
+      display: block;
+      font-size: clamp(30px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -1.6px;
+      line-height: 1.05;
+      color: var(--ink);
+    }
+
+    .ctx-side--agent .ctx-num { color: var(--accent); }
+
+    .ctx-unit {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin: 10px 0 12px;
+    }
+
+    .ctx-side p { font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+
+    .ctx-vs {
+      align-self: start;
+      padding-top: 12px;
+      font-size: 15px;
+      font-style: italic;
+      color: var(--ink-3);
+    }
+
+    .ctx-note {
+      padding-top: 24px;
+      border-top: 0.5px solid var(--border);
+      font-size: 15px;
+      color: var(--ink-2);
+      line-height: 1.7;
+    }
+
+    .ctx-note strong { color: var(--ink); font-weight: 600; }
+
     /* ── SCROLL REVEAL ──
        The .reveal class is added by JS only, so content stays visible
        when JS is unavailable, fails, or IntersectionObserver is missing. */
@@ -813,6 +866,9 @@
       .roi-band { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; }
       .roi-metric { text-align: left; padding-right: 0; border-right: none; padding-bottom: 22px; border-bottom: 0.5px solid var(--border); }
       .roi-metric span:last-child { max-width: none; }
+      .ctx-band { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; }
+      .ctx-vs { justify-self: start; padding: 0; }
+      .ctx-note { grid-column: 1 !important; margin-top: 4px; }
       .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
@@ -1026,6 +1082,23 @@
           <h3>The return isn't the speed. It's what the time gets spent on.</h3>
           <p>On delivered engagements, research and drafting run roughly five times faster. The point isn't the hours saved on paper — it's that the hours come back to your team. Time that went into searching documents and re-typing the same paragraphs goes into judgment calls, client strategy, and the work that genuinely needs a person.</p>
         </div>
+      </div>
+
+      <div class="ctx-band">
+        <div class="ctx-side ctx-side--agent">
+          <span class="ctx-num">1,000,000</span>
+          <span class="ctx-unit">tokens an agent holds at once</span>
+          <p>Around a thousand pages — three novels' worth — all open at the same time. Your full standards library, every court decision, the entire contract archive, in view at once.</p>
+        </div>
+        <div class="ctx-vs">vs</div>
+        <div class="ctx-side">
+          <span class="ctx-num">7±2</span>
+          <span class="ctx-unit">items a person holds at once</span>
+          <p>The working memory of any human being — you, us, and every expert on your team. Enough for a phone number. Established by Miller in 1956 and unchanged since.</p>
+        </div>
+        <p class="ctx-note" style="grid-column: 1 / -1;">
+          <strong>That gap is the entire case for an agent — and its limit.</strong> The agent does the holding: it reads everything, forgets nothing, and cites where each answer came from. The person does the deciding, because judgment doesn't improve with more pages in view. That's why we keep a human on every call that carries real risk.
+        </p>
       </div>
 
       <div class="services-grid">
