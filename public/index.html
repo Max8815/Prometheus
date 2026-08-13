@@ -776,6 +776,40 @@
 
     .roi-copy p { font-size: 15px; color: var(--ink-2); line-height: 1.7; }
 
+    /* ── USE CASE LAYERS ── */
+    .uc-layer + .uc-layer { margin-top: 56px; }
+
+    .uc-layer-head {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .uc-layer-num {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+    }
+
+    .uc-layer-head h3 {
+      font-size: clamp(19px, 2.2vw, 22px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+    }
+
+    .uc-layer-head p {
+      font-size: 14px;
+      color: var(--ink-2);
+      margin-left: auto;
+      text-align: right;
+      line-height: 1.5;
+    }
+
     /* ── CONTEXT COMPARISON ── */
     .ctx-band {
       display: grid;
@@ -866,6 +900,8 @@
       .roi-band { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; }
       .roi-metric { text-align: left; padding-right: 0; border-right: none; padding-bottom: 22px; border-bottom: 0.5px solid var(--border); }
       .roi-metric span:last-child { max-width: none; }
+      .uc-layer-head { flex-wrap: wrap; gap: 8px 12px; }
+      .uc-layer-head p { margin-left: 0; text-align: left; flex-basis: 100%; }
       .ctx-band { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; }
       .ctx-vs { justify-self: start; padding: 0; }
       .ctx-note { grid-column: 1 !important; margin-top: 4px; }
@@ -1101,67 +1137,31 @@
         </p>
       </div>
 
-      <div class="services-grid">
-
-        <div class="service-card">
-          <div class="icon-wrap">
-            <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          </div>
-          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Due Diligence</p>
-          <h3>Buy-Side Due Diligence</h3>
-          <p class="service-tagline">You're acquiring a company and need the numbers verified before you commit. Ledger and statement review, cash flow quality, hidden liabilities, and a written red-flag report you can take into the negotiation.</p>
+      <div class="uc-layer">
+        <div class="uc-layer-head">
+          <span class="uc-layer-num">01</span>
+          <h3>AI Agent Implementation</h3>
+          <p>Agents wired into the tools your team already uses.</p>
         </div>
-
-        <div class="service-card">
-          <div class="icon-wrap">
-            <svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Due Diligence</p>
-          <h3>Sell-Side / Exit Readiness</h3>
-          <p class="service-tagline">You're preparing to sell or raise, and want the problems found by you rather than by the buyer's advisors. We stress-test your financials the way the other side will, so nothing surprises you mid-process.</p>
-        </div>
-
-        <div class="service-card">
-          <div class="icon-wrap">
-            <svg viewBox="0 0 24 24"><path d="M4 7v10c0 2 1.5 3 4 3h8c2.5 0 4-1 4-3V7c0-2-1.5-3-4-3H8C5.5 4 4 5 4 7z"/><path d="M9 12h6"/></svg>
-          </div>
-          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">ERP Migration</p>
-          <h3>Legacy ERP Replacement</h3>
-          <p class="service-tagline">Your current system is end-of-life, unsupported, or simply outgrown. We plan the cutover, migrate and reconcile the data to audit standards, and stay through go-live — so the opening balances actually tie out.</p>
-        </div>
-
-        <div class="service-card">
-          <div class="icon-wrap">
-            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-          </div>
-          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">ERP Migration</p>
-          <h3>ERP Selection &amp; Readiness</h3>
-          <p class="service-tagline">Before you sign a licence. We map what your processes actually require, pressure-test vendor claims against them, and tell you honestly whether a migration is worth doing at all this year.</p>
-        </div>
-
-        <div class="service-card">
+        <div class="services-grid">
+<div class="service-card">
           <div class="icon-wrap">
             <svg viewBox="0 0 24 24"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           </div>
-          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">AI Agents</p>
           <h3>Internal AI Worker</h3>
           <p class="service-tagline">An agent — OpenClaw or Hermes, whichever suits the work — reachable in Telegram, WhatsApp, or Slack, drafting documents, summarising meetings, researching suppliers, handling back-office tasks. Runs on a self-hosted model when data can't leave the building, or a top-tier one via OpenRouter when the task needs the extra capability.</p>
         </div>
-
-        <div class="service-card">
+<div class="service-card">
           <div class="icon-wrap">
             <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           </div>
-          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">AI Agents</p>
           <h3>Automated Invoice &amp; PO Processing</h3>
           <p class="service-tagline">Invoices scanned, data extracted, and entries pushed into your accounting system — cutting manual keying and the errors that come with it. Works with scanned PDFs, email attachments, and supplier portals. On the ordering side, the same agent can generate purchase orders from requisitions, route them for approval, and check order details against inventory and prior purchase history before anything is sent.</p>
         </div>
-
-        <div class="service-card">
+<div class="service-card">
           <div class="icon-wrap">
             <svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
           </div>
-          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">AI Agents</p>
           <h3>Audit Standards Knowledge Agent</h3>
           <p class="service-tagline">An internal agent indexed across your full library of audit standards — ISA and other international standards, 120+ PDFs — so any team member can ask a procedural question and get an answer with the exact standard and paragraph cited, instead of searching documents by hand. Drafts correspondence to colleagues and helps structure audit procedures against the applicable ISA requirements.</p>
           <p class="service-tagline" style="margin-top: -8px; font-style: italic;">Client data is anonymized by a Python script before anything reaches the model — so no personally identifiable or confidential engagement data is ever exposed, even to a hosted model.</p>
@@ -1170,30 +1170,24 @@
             <p style="font-size: 14px; color: var(--ink); line-height: 1.65; margin: 0;">A knowledge-base wiki over international standards, with drafts and client summary reports generated from it. <strong>Research and drafting time cut roughly 5×.</strong></p>
           </div>
         </div>
-
-        <div class="service-card">
+<div class="service-card">
           <div class="icon-wrap">
             <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h3m-7 5h10a2 2 0 002-2V7.414a1 1 0 00-.293-.707l-3.414-3.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v13a2 2 0 002 2z"/></svg>
           </div>
-          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">AI Agents</p>
           <h3>Contract Compliance &amp; Review Agent</h3>
           <p class="service-tagline">Indexed across your supplier and vendor contracts, this agent flags missing clauses, non-standard terms, and expiring agreements before they become a problem — and keeps a running log of what's up to date and what needs attention. Same underlying approach as the audit standards agent, pointed at contracts instead of ISA references.</p>
         </div>
-
-        <div class="service-card">
+<div class="service-card">
           <div class="icon-wrap">
             <svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
           </div>
-          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">AI Agents</p>
           <h3>Vendor &amp; Expense Analysis Agent</h3>
           <p class="service-tagline">Pulls spend data across suppliers and expense categories, flags cost-saving opportunities, and surfaces anomalous spend patterns — a duplicate payment, a vendor price creeping up, a category quietly overspending. A natural follow-on after an ERP migration, when the data is finally clean enough to report on reliably.</p>
         </div>
-
-        <div class="service-card">
+<div class="service-card">
           <div class="icon-wrap">
             <svg viewBox="0 0 24 24"><path d="M12 3v18m0-18L5 8m7-5l7 5M5 8l-3.5 6.5a3.5 3.5 0 007 0L5 8zm14 0l-3.5 6.5a3.5 3.5 0 007 0L19 8z"/></svg>
           </div>
-          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">AI Agents</p>
           <h3>Legal Research &amp; Drafting Agent</h3>
           <p class="service-tagline">Indexed across your firm's court decisions and case files, this agent lets any lawyer ask a precedent question and get an answer with the ruling and citation attached, instead of digging through archives. It also keeps a living knowledge-base wiki of past matters and drafts — so a new contract, motion, or memo starts from your own firm's precedent, not a blank page.</p>
           <div style="margin-top: 18px; padding: 14px 18px; background: var(--accent-light); border-radius: var(--radius-sm);">
@@ -1201,12 +1195,61 @@
             <p style="font-size: 14px; color: var(--ink); line-height: 1.65; margin: 0;">A knowledge-base wiki over court decisions, with drafts and client summary reports generated from it. <strong>Research and drafting time cut roughly 5×.</strong></p>
           </div>
         </div>
-
+        </div>
       </div>
+
+      <div class="uc-layer">
+        <div class="uc-layer-head">
+          <span class="uc-layer-num">02</span>
+          <h3>Financial Due Diligence</h3>
+          <p>Independent verification before a deal, a loan, or a change of ownership.</p>
+        </div>
+        <div class="services-grid">
+<div class="service-card">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3>Buy-Side Due Diligence</h3>
+          <p class="service-tagline">You're acquiring a company and need the numbers verified before you commit. Ledger and statement review, cash flow quality, hidden liabilities, and a written red-flag report you can take into the negotiation.</p>
+        </div>
+<div class="service-card">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3>Sell-Side / Exit Readiness</h3>
+          <p class="service-tagline">You're preparing to sell or raise, and want the problems found by you rather than by the buyer's advisors. We stress-test your financials the way the other side will, so nothing surprises you mid-process.</p>
+        </div>
+        </div>
+      </div>
+
+      <div class="uc-layer">
+        <div class="uc-layer-head">
+          <span class="uc-layer-num">03</span>
+          <h3>ERP Migration</h3>
+          <p>Getting off a legacy system without losing data integrity.</p>
+        </div>
+        <div class="services-grid">
+<div class="service-card">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M4 7v10c0 2 1.5 3 4 3h8c2.5 0 4-1 4-3V7c0-2-1.5-3-4-3H8C5.5 4 4 5 4 7z"/><path d="M9 12h6"/></svg>
+          </div>
+          <h3>Legacy ERP Replacement</h3>
+          <p class="service-tagline">Your current system is end-of-life, unsupported, or simply outgrown. We plan the cutover, migrate and reconcile the data to audit standards, and stay through go-live — so the opening balances actually tie out.</p>
+        </div>
+<div class="service-card">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+          </div>
+          <h3>ERP Selection &amp; Readiness</h3>
+          <p class="service-tagline">Before you sign a licence. We map what your processes actually require, pressure-test vendor claims against them, and tell you honestly whether a migration is worth doing at all this year.</p>
+        </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- HOW WE WORK -->
+<!-- HOW WE WORK -->
   <section id="how-we-work">
     <div class="section-inner">
       <p class="eyebrow">How We Work</p>
