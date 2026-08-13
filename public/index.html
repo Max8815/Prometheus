@@ -730,6 +730,52 @@
 
     .tri-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
+    /* ── ROI BAND ── */
+    .roi-band {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 40px;
+      align-items: center;
+      background: var(--surface-2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      margin-bottom: 40px;
+    }
+
+    .roi-metric { text-align: center; padding-right: 40px; border-right: 0.5px solid var(--border); }
+
+    .roi-num {
+      display: block;
+      font-size: clamp(46px, 6vw, 68px);
+      font-weight: 700;
+      letter-spacing: -3px;
+      line-height: 1;
+      color: var(--accent);
+    }
+
+    .roi-metric span:last-child {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-top: 10px;
+      max-width: 150px;
+    }
+
+    .roi-copy h3 {
+      font-size: clamp(19px, 2.2vw, 23px);
+      font-weight: 600;
+      letter-spacing: -0.6px;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .roi-copy p { font-size: 15px; color: var(--ink-2); line-height: 1.7; }
+
     /* ── SCROLL REVEAL ──
        The .reveal class is added by JS only, so content stays visible
        when JS is unavailable, fails, or IntersectionObserver is missing. */
@@ -764,6 +810,9 @@
       .stat:nth-child(4) { border-top: 0.5px solid var(--border); border-right: none; }
       .diff-grid { grid-template-columns: 1fr; }
       .tri-grid { grid-template-columns: 1fr; }
+      .roi-band { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; }
+      .roi-metric { text-align: left; padding-right: 0; border-right: none; padding-bottom: 22px; border-bottom: 0.5px solid var(--border); }
+      .roi-metric span:last-child { max-width: none; }
       .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
@@ -967,6 +1016,18 @@
       <p class="eyebrow">Use Cases</p>
       <h2>What engagements<br>actually look like.</h2>
       <p class="section-desc">Real engagements across all three services — from an independent report on a live deal to an AI agent running inside your team's chat.</p>
+
+      <div class="roi-band">
+        <div class="roi-metric">
+          <span class="roi-num">5×</span>
+          <span>Faster research &amp; drafting</span>
+        </div>
+        <div class="roi-copy">
+          <h3>The return isn't the speed. It's what the time gets spent on.</h3>
+          <p>On delivered engagements, research and drafting run roughly five times faster. The point isn't the hours saved on paper — it's that the hours come back to your team. Time that went into searching documents and re-typing the same paragraphs goes into judgment calls, client strategy, and the work that genuinely needs a person.</p>
+        </div>
+      </div>
+
       <div class="services-grid">
 
         <div class="service-card">
