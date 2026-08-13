@@ -444,41 +444,49 @@
     }
 
     /* ── HOW WE WORK ── */
-    #how-we-work { background: var(--surface-2); }
+    #how-we-work { background: var(--surface-3); }
 
     .process-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      position: relative;
+      gap: 16px;
     }
 
-    .process-grid::after {
+    .process-step {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .process-step::after {
       content: '';
       position: absolute;
-      top: 32px;
-      left: calc(100% / 8);
-      right: calc(100% / 8);
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-strong) 20%, var(--border-strong) 80%, transparent);
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), rgba(0,113,227,0));
+      opacity: 0;
+      transition: opacity 0.2s;
     }
 
-    .process-step { padding: 0 28px; position: relative; z-index: 1; }
-    .process-step:first-child { padding-left: 0; }
-    .process-step:last-child { padding-right: 0; }
+    .process-step:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .process-step:hover::after { opacity: 1; }
 
     .step-num {
-      width: 64px; height: 64px;
-      background: var(--ink);
-      color: #fff;
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-      border-radius: 50%;
+      width: 46px; height: 46px;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      border-radius: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 28px;
+      margin-bottom: 22px;
     }
 
     .process-step h3 {
@@ -721,9 +729,7 @@
     @media (max-width: 900px) {
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
       .services-grid { grid-template-columns: 1fr 1fr; }
-      .process-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
-      .process-grid::after { display: none; }
-      .process-step { padding: 0; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
       .insight-inner { grid-template-columns: 1fr; }
       .diff-grid { grid-template-columns: 1fr 1fr; }
     }
