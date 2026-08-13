@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MK Solution — AI Agents, ERP Migration &amp; Due Diligence</title>
-  <meta name="description" content="AI agent implementation, ERP migration, and financial due diligence for Czech and EU small and mid-sized businesses. Ex-senior auditor, Prague-based. Evidence first, then the systems to match." />
+  <meta name="description" content="AI agent implementation, ERP migration, and financial due diligence for Czech and EU small and mid-sized businesses. Based in Prague, Czechia. Evidence first, then the systems to match." />
   <link rel="canonical" href="https://mk4ai.com/" />
 
   <!-- Social sharing (LinkedIn, Slack, WhatsApp) -->
@@ -12,10 +12,15 @@
   <meta property="og:url" content="https://mk4ai.com/" />
   <meta property="og:site_name" content="MK Solution" />
   <meta property="og:title" content="MK Solution — AI Agents, ERP Migration &amp; Due Diligence" />
-  <meta property="og:description" content="Ex-senior auditor in Prague. AI agent implementation, ERP migration, and financial due diligence for Czech &amp; EU small and mid-sized businesses." />
+  <meta property="og:description" content="Based in Prague, Czechia. AI agent implementation, ERP migration, and financial due diligence for Czech &amp; EU small and mid-sized businesses." />
+  <meta property="og:image" content="https://mk4ai.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="MK Solution — we audit the processes and numbers, then we rebuild the systems." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="MK Solution — AI Agents, ERP Migration &amp; Due Diligence" />
-  <meta name="twitter:description" content="Ex-senior auditor in Prague. AI agent implementation, ERP migration, and financial due diligence for Czech &amp; EU small and mid-sized businesses." />
+  <meta name="twitter:description" content="Based in Prague, Czechia. AI agent implementation, ERP migration, and financial due diligence for Czech &amp; EU small and mid-sized businesses." />
+  <meta name="twitter:image" content="https://mk4ai.com/og-image.png" />
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230071e3'/%3E%3Ctext x='32' y='43' font-family='Helvetica,Arial,sans-serif' font-size='28' font-weight='600' fill='white' text-anchor='middle'%3EMK%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -725,6 +730,18 @@
 
     .tri-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
+    /* ── SCROLL REVEAL ──
+       The .reveal class is added by JS only, so content stays visible
+       when JS is unavailable, fails, or IntersectionObserver is missing. */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .reveal.is-visible { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -777,7 +794,8 @@
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#use-cases">Use Cases</a></li>
-        <li><a href="#how-we-work">How We Work</a></li>
+        <li><a href="#how-we-work">Process</a></li>
+        <li><a href="#when-to-build">AI Boundaries</a></li>
         <li><a href="#why">Why Us</a></li>
         <li><a href="#cta" class="nav-cta">Book Free Call</a></li>
       </ul>
@@ -838,7 +856,7 @@
             </div>
           </div>
           <div style="display: flex; align-items: center; gap: 16px; margin: 28px 0; padding: 20px 24px; background: var(--surface-2); border-radius: var(--radius); border: 0.5px solid var(--border);">
-            <div style="width: 52px; height: 52px; min-width: 52px; border-radius: 50%; background: linear-gradient(135deg, #0071e3, #34aadc); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; letter-spacing: -0.5px;">MK</div>
+            <div style="width: 52px; height: 52px; min-width: 52px; border-radius: 50%; background: linear-gradient(135deg, #1d1d1f, #4a4a52); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; letter-spacing: -0.5px;">MK</div>
             <div>
               <p style="font-size: 15px; font-weight: 600; color: var(--ink); margin: 0; letter-spacing: -0.2px;">Marie Kostenková</p>
               <p style="font-size: 13px; color: var(--ink-2); margin: 2px 0 4px; line-height: 1.5;">DevOps &amp; ML/LLM Specialist · Python Developer — builds and maintains the infrastructure the agents actually run on.</p>
@@ -848,10 +866,6 @@
           <a href="#cta" class="btn-primary" style="width: fit-content;">Let's Talk →</a>
         </div>
         <div class="about-right">
-          <div class="principle-card">
-            <h4>Evidence before recommendations</h4>
-            <p>We never arrive with a solution looking for a problem. Every recommendation is grounded in documented process analysis — not vendor incentives or fashionable tools.</p>
-          </div>
           <div class="principle-card">
             <h4>Independent when it counts</h4>
             <p>Due diligence work is exactly that — independent. The findings are the deliverable, with no obligation to build anything afterwards and no incentive for the answer to come out one way.</p>
@@ -870,7 +884,7 @@
     <div class="section-inner">
       <p class="eyebrow">Services</p>
       <h2>Three services.<br>One discipline.</h2>
-      <p class="section-desc">Each engagement starts with evidence — never with selling software. What gets recommended is determined by your reality, not by what we'd prefer to build.</p>
+      <p class="section-desc">Three distinct engagements that often follow one another — verify the numbers, replace the system holding them, then automate what's left. Each one stands alone if that's all you need.</p>
       <div class="services-grid">
 
         <div class="service-card">
@@ -924,6 +938,7 @@
           <div class="icon-wrap">
             <svg viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
           </div>
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Capability · part of AI Agent Implementation</p>
           <h3>Local AI — Private by Design</h3>
           <p class="service-tagline" style="max-width: 780px;">We deploy open-weight language models that run entirely on your own infrastructure, with the agent layer on top of them — so nothing, prompts included, leaves your environment. Top-tier models stay available via OpenRouter for the tasks where that trade-off is acceptable. Built for companies where GDPR, client confidentiality, or industry compliance make cloud AI non-negotiable. Your customer data stays in your office, in the EU, under your control.</p>
           <div class="tri-grid" style="margin-top: 20px;">
@@ -951,7 +966,7 @@
     <div class="section-inner">
       <p class="eyebrow">Use Cases</p>
       <h2>What engagements<br>actually look like.</h2>
-      <p class="section-desc">Two examples of each service — from an independent report on a live deal to an AI agent running inside your team's chat.</p>
+      <p class="section-desc">Real engagements across all three services — from an independent report on a live deal to an AI agent running inside your team's chat.</p>
       <div class="services-grid">
 
         <div class="service-card">
@@ -1215,7 +1230,7 @@
     <div class="section-inner">
       <p class="eyebrow">Get Started</p>
       <h2>Let's find out<br>what's actually true.</h2>
-      <p>Book a free 30-minute call — whether you have a deal to verify, an ERP to replace, or a process worth automating. No pitch, no pressure. If it isn't a fit, I'll say so.</p>
+      <p>Book a free 30-minute call — whether you have a deal to verify, an ERP to replace, or a process worth automating. No pitch, no pressure. If it isn't a fit, we'll say so.</p>
       <div class="contact-form-wrap" style="text-align: center;">
         <a href="https://calendly.com/maxkostenko18/30min" target="_blank" rel="noopener" class="btn-white" style="max-width: 360px; margin: 0 auto;">Book Free Discovery Call →</a>
         <p class="form-note">No spam. No sales calls. Reply within 24 hours.</p>
@@ -1259,11 +1274,11 @@
       </div>
       <p class="footer-copy">© 2026 MK Solution</p>
     </div>
-    <p class="footer-legal">Financial Due Diligence + AI Agent Implementation + ERP Migration. Built for impact — not for show.</p>
+    <p class="footer-legal">AI Agent Implementation + ERP Migration + Financial Due Diligence. Built for impact — not for show.</p>
     <p class="footer-legal" style="margin-top: 8px;">MK Solution is operated by DMK corporate s.r.o. &nbsp;·&nbsp; Mezilehlá 326/1, Hrdlořezy, 190 00 Praha 9 &nbsp;·&nbsp; IČO: 11782510</p>
   </footer>
 
-  <div id="toast" role="status" aria-live="polite">✓ Message sent — I'll be in touch within 24h</div>
+  <div id="toast" role="status" aria-live="polite">✓ Message sent — we'll be in touch within 24h</div>
 
   <script>
     // Mobile nav
@@ -1302,22 +1317,26 @@
       setTimeout(() => toast.classList.remove('show'), 5000);
     });
 
-    // Scroll fade-in
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(el => {
-        if (el.isIntersecting) {
-          el.target.style.opacity = '1';
-          el.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
+    // Scroll fade-in — only hides content once we know we can reveal it again
+    (function () {
+      const targets = document.querySelectorAll('.service-card, .process-step, .principle-card, .diff-card, .insight-item');
+      const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!('IntersectionObserver' in window) || reduced) return;
 
-    document.querySelectorAll('.service-card, .process-step, .principle-card, .diff-card, .insight-item').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-      el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
-      observer.observe(el);
-    });
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      targets.forEach(el => {
+        el.classList.add('reveal');
+        observer.observe(el);
+      });
+    })();
   </script>
 </body>
 </html>
