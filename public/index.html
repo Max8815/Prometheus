@@ -927,6 +927,117 @@
     }
     .reveal.is-visible { opacity: 1; transform: none; }
 
+    /* ── GSAP MOTION ──
+       Entrance states live in JS (gsap.from/fromTo), never in CSS, so a blocked
+       or slow CDN can never leave content stuck invisible. */
+    .split-line { will-change: transform; }
+
+    /* ── HORIZONTAL USE-CASE RAIL ──
+       On a wide enough viewport the three layers become one long horizontal
+       track that GSAP pins and scrubs left as you scroll down. Anywhere else
+       the rail is inert and the layers fall back to the original stacked grid.
+       The min-height guard matters: pinning a rail taller than the viewport
+       would strand its lower half offscreen. The rail measures ~544px, so 680
+       leaves room for the 52px nav plus breathing space.
+       This query must stay in sync with RAIL_QUERY in the script below. */
+    .uc-rail { position: relative; }
+
+    @media (min-width: 901px) and (min-height: 680px) {
+      .uc-rail { overflow: hidden; margin: 0 -4px; padding: 4px 4px 30px; }
+
+      /* stretch keeps every card the same height across the whole rail, so the
+         tops and bottoms line up as one continuous deck. */
+      .uc-rail-track {
+        display: flex;
+        align-items: stretch;
+        gap: 32px;
+        width: max-content;
+        will-change: transform;
+      }
+
+      .uc-rail .uc-layer { display: flex; align-items: stretch; gap: 16px; }
+      .uc-rail .uc-layer + .uc-layer { margin-top: 0; }
+
+      /* The layer heading is a chapter marker that travels past. Its accent
+         rule runs the full card height; the copy starts at the top. */
+      .uc-rail .uc-layer-head {
+        flex: 0 0 180px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 10px;
+        margin-bottom: 0;
+        padding: 0 0 0 18px;
+        border-bottom: none;
+        border-left: 2px solid var(--accent);
+      }
+
+      .uc-rail .uc-layer-head p { margin-left: 0; text-align: left; }
+      .uc-rail .services-grid { display: flex; align-items: stretch; gap: 16px; }
+
+      /* Much wider than the grid cards on purpose. Card width drives rail
+         height here: the same copy at 420px wraps into a 638px rail, too tall
+         to pin on a 717px screen; at 520px it wraps into 544px, which fits. */
+      .uc-rail .service-card { flex: 0 0 520px; padding: 26px; }
+      .uc-rail .service-tagline { font-size: 14px; line-height: 1.6; }
+    }
+
+    /* ── PROOF STRIP ──
+       Sits after the rail, so it reads as evidence for the whole section
+       rather than for whichever card happened to hold the callout. */
+    .uc-proof {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .uc-proof-item {
+      background: var(--accent-light);
+      border-radius: var(--radius-sm);
+      padding: 18px 22px;
+    }
+
+    .uc-proof-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .uc-proof-item p:last-child {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* Scrub progress under the rail — the only cue that the section is pinned.
+       Lives inside .uc-rail so it gets pinned with it; a sibling would scroll
+       out of view the moment the rail pinned. */
+    .uc-progress {
+      display: none;
+      position: absolute;
+      left: 4px; right: 4px; bottom: 0;
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .uc-progress span {
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: var(--accent);
+      transform: scaleX(var(--uc-progress, 0));
+      transform-origin: left;
+    }
+
+    .uc-rail.is-pinned .uc-progress { display: block; }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .reveal, .reveal.is-visible { opacity: 1; transform: none; transition: none; }
@@ -964,6 +1075,7 @@
       .roi-metric span:last-child { max-width: none; }
       .uc-layer-head { flex-wrap: wrap; gap: 8px 12px; }
       .uc-layer-head p { margin-left: 0; text-align: left; flex-basis: 100%; }
+      .uc-proof { grid-template-columns: 1fr; }
       .ctx-band { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; }
       .ctx-vs { justify-self: start; padding: 0; }
       .ctx-note { grid-column: 1 !important; margin-top: 4px; }
@@ -986,6 +1098,13 @@
       .nav-links.open a { font-size: 17px; opacity: 1; }
     }
   </style>
+
+  <!-- Motion stack. Deferred and entirely optional: if any of these fail to
+       load, the inline script falls back to the IntersectionObserver reveals. -->
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
 </head>
 <body>
 
@@ -1200,6 +1319,10 @@
         </p>
       </div>
 
+      <!-- Horizontal rail: pinned and scrubbed left→right by GSAP on desktop,
+           a plain stack of layers everywhere else. -->
+      <div class="uc-rail" id="ucRail">
+        <div class="uc-rail-track">
       <div class="uc-layer">
         <div class="uc-layer-head">
           <span class="uc-layer-num">01</span>
@@ -1229,10 +1352,6 @@
           <h3>Audit Standards Knowledge Agent</h3>
           <p class="service-tagline">An internal agent indexed across your full library of audit standards — ISA and other international standards, 120+ PDFs — so any team member can ask a procedural question and get an answer with the exact standard and paragraph cited, instead of searching documents by hand. Drafts correspondence to colleagues and helps structure audit procedures against the applicable ISA requirements.</p>
           <p class="service-tagline" style="margin-top: -8px; font-style: italic;">Client data is anonymized by a Python script before anything reaches the model — so no personally identifiable or confidential engagement data is ever exposed, even to a hosted model.</p>
-          <div style="margin-top: 18px; padding: 14px 18px; background: var(--accent-light); border-radius: var(--radius-sm);">
-            <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px;">Delivered · audit firm</p>
-            <p style="font-size: 14px; color: var(--ink); line-height: 1.65; margin: 0;">A knowledge-base wiki over international standards, with drafts and client summary reports generated from it. <strong>Research and drafting time cut roughly 5×.</strong></p>
-          </div>
         </div>
 <div class="service-card">
           <div class="icon-wrap">
@@ -1254,10 +1373,6 @@
           </div>
           <h3>Legal Research &amp; Drafting Agent</h3>
           <p class="service-tagline">Indexed across your firm's court decisions and case files, this agent lets any lawyer ask a precedent question and get an answer with the ruling and citation attached, instead of digging through archives. It also keeps a living knowledge-base wiki of past matters and drafts — so a new contract, motion, or memo starts from your own firm's precedent, not a blank page.</p>
-          <div style="margin-top: 18px; padding: 14px 18px; background: var(--accent-light); border-radius: var(--radius-sm);">
-            <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px;">Delivered · law firm</p>
-            <p style="font-size: 14px; color: var(--ink); line-height: 1.65; margin: 0;">A knowledge-base wiki over court decisions, with drafts and client summary reports generated from it. <strong>Research and drafting time cut roughly 5×.</strong></p>
-          </div>
         </div>
         </div>
       </div>
@@ -1307,6 +1422,22 @@
           <h3>ERP Selection &amp; Readiness</h3>
           <p class="service-tagline">Before you sign a licence. We map what your processes actually require, pressure-test vendor claims against them, and tell you honestly whether a migration is worth doing at all this year.</p>
         </div>
+        </div>
+      </div>
+        </div>
+        <div class="uc-progress" aria-hidden="true"><span></span></div>
+      </div>
+
+      <!-- Proof strip: the two "Delivered" callouts, lifted out of their cards
+           so one long card no longer sets the height of every card in the rail. -->
+      <div class="uc-proof">
+        <div class="uc-proof-item">
+          <p class="uc-proof-label">Delivered · audit firm</p>
+          <p>A knowledge-base wiki over international standards, with drafts and client summary reports generated from it. <strong>Research and drafting time cut roughly 5×.</strong></p>
+        </div>
+        <div class="uc-proof-item">
+          <p class="uc-proof-label">Delivered · law firm</p>
+          <p>A knowledge-base wiki over court decisions, with drafts and client summary reports generated from it. <strong>Research and drafting time cut roughly 5×.</strong></p>
         </div>
       </div>
 
@@ -1574,15 +1705,200 @@
       onScroll();
     })();
 
+    // ── MOTION SYSTEM ──
+    // GSAP + ScrollTrigger + Lenis drive the entrances when the deferred CDN
+    // bundles are available. They load after this inline script, so the choice
+    // is made on DOMContentLoaded. If any of them is missing — blocked CDN,
+    // offline, old browser — initRevealFallback() runs the original
+    // IntersectionObserver reveals instead, and nothing stays hidden.
+    const CARD_SELECTOR =
+      '.service-card, .process-step, .principle-card, .diff-card, .insight-item';
+    const FADE_SELECTOR =
+      '.eyebrow, .section-desc, .roi-band, .ctx-band, .insight-quote';
+    // Viewports where the use-case rail runs horizontally and gets pinned.
+    // Must stay in sync with the .uc-rail media query in the stylesheet.
+    const RAIL_QUERY = '(min-width: 901px) and (min-height: 680px)';
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return;
+      if (window.gsap && window.ScrollTrigger) initMotion();
+      else initRevealFallback();
+    });
+
+    function initMotion() {
+      gsap.registerPlugin(ScrollTrigger);
+      const hasSplit = typeof SplitText !== 'undefined';
+      if (hasSplit) gsap.registerPlugin(SplitText);
+      document.documentElement.classList.add('gsap-on');
+
+      // Lenis smooth scroll, driven off GSAP's ticker so scrubbed timelines
+      // stay in sync with the eased scroll position rather than the raw one.
+      if (window.Lenis) {
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+          smoothWheel: true,
+        });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add(time => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+        document.documentElement.style.scrollBehavior = 'auto';
+
+        // Route in-page anchors through Lenis so jumps ease instead of snapping.
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+          a.addEventListener('click', e => {
+            const target = document.querySelector(a.getAttribute('href'));
+            if (!target) return;
+            e.preventDefault();
+            lenis.scrollTo(target, { offset: -(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'), 10) || 52) - 16 });
+          });
+        });
+      }
+
+      // split-lines — each headline line rises out from behind its own mask.
+      // Deferred until fonts settle, since line breaks depend on the real face.
+      const splitHeadings = () => {
+        gsap.utils.toArray('h2').forEach(h => {
+          const split = new SplitText(h, { type: 'lines', mask: 'lines', linesClass: 'split-line' });
+          gsap.from(split.lines, {
+            yPercent: 115,
+            duration: 0.9,
+            ease: 'power3.out',
+            stagger: 0.09,
+            scrollTrigger: { trigger: h, start: 'top 85%', once: true },
+          });
+        });
+        ScrollTrigger.refresh();
+      };
+      if (hasSplit) {
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(splitHeadings);
+        else splitHeadings();
+      } else {
+        fadeUp(gsap.utils.toArray('h2'));
+      }
+
+      // fade-up — eyebrows, section intros and the standalone bands.
+      gsap.utils.toArray(FADE_SELECTOR).forEach(el => fadeUp([el]));
+
+      // clip-reveal — cards wipe in from the left, staggered per grid. Rail
+      // cards are skipped only when the rail actually runs horizontally, since
+      // then its own motion reveals them. On smaller viewports the rail is a
+      // plain stack and its cards need the wipe like any other.
+      const railIsHorizontal = matchMedia(RAIL_QUERY).matches;
+      const groups = new Map();
+      gsap.utils.toArray(CARD_SELECTOR).forEach(el => {
+        if (railIsHorizontal && el.closest('#ucRail')) return;
+        const parent = el.parentElement;
+        if (!groups.has(parent)) groups.set(parent, []);
+        groups.get(parent).push(el);
+      });
+      groups.forEach((els, parent) => {
+        // fromTo, not from: clip-path resolves to `none` on these cards, which
+        // GSAP cannot interpolate towards. clearProps drops the inline
+        // transform afterwards so the CSS hover lift still works.
+        gsap.fromTo(els,
+          { opacity: 0, x: -28, clipPath: 'inset(0 100% 0 0)' },
+          {
+            opacity: 1,
+            x: 0,
+            clipPath: 'inset(0 0% 0 0)',
+            duration: 0.85,
+            ease: 'power3.out',
+            stagger: 0.08,
+            clearProps: 'clipPath,transform,opacity',
+            scrollTrigger: { trigger: parent, start: 'top 85%', once: true },
+          }
+        );
+      });
+
+      // scroll-fade — hero copy drifts up and dissolves as you scroll past it.
+      // The hero intro is a CSS animation with `both` fill, whose held final
+      // frame would outrank the inline opacity GSAP sets here — so each element
+      // drops its animation the moment it finishes.
+      const heroBits = gsap.utils.toArray('#hero > *');
+      heroBits.forEach(el => el.addEventListener('animationend', () => {
+        el.style.animation = 'none';
+      }, { once: true }));
+      if (heroBits.length) {
+        gsap.to(heroBits, {
+          y: -60,
+          opacity: 0,
+          ease: 'none',
+          stagger: 0.02,
+          scrollTrigger: { trigger: '#hero', start: 'center center', end: 'bottom top', scrub: true },
+        });
+      }
+
+      // scroll-parallax — the insight band's content trails the page slightly.
+      const insight = document.querySelector('#insight .insight-inner');
+      if (insight) {
+        gsap.fromTo(insight, { y: 40 }, {
+          y: -40,
+          ease: 'none',
+          scrollTrigger: { trigger: '#insight', start: 'top bottom', end: 'bottom top', scrub: true },
+        });
+      }
+
+      // horizontal-scroll — the use-case rail pins and scrubs left→right.
+      // Outside RAIL_QUERY the rail is a plain stack and must not be pinned.
+      const mm = gsap.matchMedia();
+      mm.add(RAIL_QUERY, () => {
+        const rail = document.getElementById('ucRail');
+        const track = rail && rail.querySelector('.uc-rail-track');
+        const bar = document.querySelector('.uc-progress');
+        if (!track) return;
+
+        const distance = () => Math.max(0, track.scrollWidth - rail.clientWidth);
+        if (distance() <= 0) return;
+        rail.classList.add('is-pinned');
+
+        const tween = gsap.to(track, {
+          x: () => -distance(),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: rail,
+            start: 'center center',
+            end: () => '+=' + distance(),
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            scrub: 0.5,
+            invalidateOnRefresh: true,
+            onUpdate: self => {
+              if (bar) bar.style.setProperty('--uc-progress', self.progress.toFixed(3));
+            },
+          },
+        });
+
+        return () => {
+          rail.classList.remove('is-pinned');
+          tween.scrollTrigger && tween.scrollTrigger.kill();
+          tween.kill();
+        };
+      });
+
+      function fadeUp(els) {
+        els.forEach(el => {
+          gsap.from(el, {
+            opacity: 0,
+            y: 28,
+            duration: 0.8,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          });
+        });
+      }
+    }
+
     // Scroll fade-in — only hides content once we know we can reveal it again.
     // Siblings that reveal together get an increasing delay, so grids cascade in.
-    (function () {
+    function initRevealFallback() {
       const targets = document.querySelectorAll(
-        '.service-card, .process-step, .principle-card, .diff-card, .insight-item, ' +
-        '.eyebrow, h2, .section-desc, .roi-band, .ctx-band, .uc-layer-head, .insight-quote'
+        CARD_SELECTOR + ', ' + FADE_SELECTOR + ', h2, .uc-layer-head'
       );
-      const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!('IntersectionObserver' in window) || reduced) return;
+      if (!('IntersectionObserver' in window)) return;
 
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
@@ -1602,7 +1918,7 @@
         if (i > 0) el.style.setProperty('--reveal-delay', Math.min(i * 0.08, 0.4).toFixed(2) + 's');
         observer.observe(el);
       });
-    })();
+    }
 
     // Count-up numbers when they scroll into view
     (function () {
