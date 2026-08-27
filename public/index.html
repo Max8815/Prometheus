@@ -145,6 +145,24 @@
       height: 2px;
       background: var(--ink);
       border-radius: 2px;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s;
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── SCROLL PROGRESS BAR ── */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      z-index: 300;
+      background: linear-gradient(90deg, var(--accent), #34aadc);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      pointer-events: none;
     }
 
     /* ── HERO ── */
@@ -231,10 +249,17 @@
 
     h1 em {
       font-style: normal;
-      background: linear-gradient(135deg, #0071e3 0%, #34aadc 100%);
+      background: linear-gradient(120deg, #0071e3 0%, #34aadc 35%, #7ed0ff 50%, #34aadc 65%, #0071e3 100%);
+      background-size: 220% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: shimmer 7s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 0; }
+      50%      { background-position: 100% 0; }
     }
 
     .hero-sub {
@@ -273,11 +298,14 @@
       border-radius: 980px;
       text-decoration: none;
       letter-spacing: -0.2px;
+      transform: scale(var(--bs, 1));
       transition: background 0.2s, transform 0.15s;
     }
 
-    .btn-primary:hover { background: var(--accent-hover); transform: scale(1.02); }
-    .btn-primary:active { transform: scale(0.97); }
+    /* Hover/active scale goes through --bs so it composes with the
+       magnetic translate instead of overriding it. */
+    .btn-primary:hover { background: var(--accent-hover); --bs: 1.02; }
+    .btn-primary:active { --bs: 0.97; }
 
     .btn-secondary {
       display: inline-flex;
@@ -422,6 +450,7 @@
       border: 0.5px solid var(--border);
       border-radius: var(--radius);
       padding: 36px;
+      transform: translateY(var(--ty, 0px));
       transition: box-shadow 0.25s, transform 0.25s;
       position: relative;
       overflow: hidden;
@@ -437,8 +466,37 @@
       transition: opacity 0.2s;
     }
 
-    .service-card:hover { box-shadow: 0 12px 48px rgba(0,0,0,0.10); transform: translateY(-4px); }
+    /* The lift travels via --ty so it composes with the 3D tilt
+       transform instead of overriding it. */
+    .service-card:hover { box-shadow: 0 12px 48px rgba(0,0,0,0.10); --ty: -4px; }
     .service-card:hover::after { opacity: 1; }
+
+    /* Cursor-following sheen on cards; --mx/--my are set by JS on hover */
+    .service-card::before,
+    .process-step::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgba(0, 113, 227, 0.07), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+
+    .service-card:hover::before,
+    .process-step:hover::before { opacity: 1; }
+
+    /* 3D tilt — JS sets --rx/--ry from cursor position.
+       Doubled class so this outranks `.reveal.is-visible { transform: none }`,
+       and gated on .is-visible so the reveal entrance still plays first. */
+    .tilt.tilt.is-visible,
+    .tilt.tilt:not(.reveal) {
+      transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--ty, 0px));
+      transform-style: preserve-3d;
+    }
+
+    .tilt { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s; }
+    .tilt.is-tilting { transition: transform 0.12s ease-out, box-shadow 0.25s; }
 
     .icon-wrap { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
     .service-card:hover .icon-wrap,
@@ -462,6 +520,22 @@
       stroke-width: 1.6;
       stroke-linecap: round;
       stroke-linejoin: round;
+    }
+
+    /* Icons draw themselves in when their card reveals.
+       Path length is measured by JS, which also sets --icon-len. */
+    .draw-icon path {
+      stroke-dasharray: var(--icon-len);
+      stroke-dashoffset: var(--icon-len);
+    }
+
+    .reveal.is-visible .draw-icon path {
+      animation: draw 1.1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+      animation-delay: calc(var(--reveal-delay, 0s) + 0.15s);
+    }
+
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
     }
 
     .service-card h3 {
@@ -509,6 +583,7 @@
       padding: 32px 28px;
       position: relative;
       overflow: hidden;
+      transform: translateY(var(--ty, 0px));
       transition: box-shadow 0.25s, transform 0.25s;
     }
 
@@ -522,7 +597,7 @@
       transition: opacity 0.2s;
     }
 
-    .process-step:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .process-step:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.08); --ty: -4px; }
     .process-step:hover::after { opacity: 1; }
 
     .step-num {
@@ -707,11 +782,13 @@
       letter-spacing: -0.2px;
       border: none;
       cursor: pointer;
+      transform: scale(var(--bs, 1));
       transition: background 0.2s, transform 0.15s;
       margin-top: 4px;
     }
 
-    .btn-white:hover { background: #f0f0f5; transform: scale(1.01); }
+    .btn-white:hover { background: #f0f0f5; --bs: 1.02; }
+    .btn-white:active { --bs: 0.98; }
 
     .form-note {
       font-size: 13px;
@@ -927,9 +1004,58 @@
     }
     .reveal.is-visible { opacity: 1; transform: none; }
 
+    /* Directional variants — applied by JS so alternating blocks
+       enter from opposite sides instead of all rising the same way. */
+    .reveal-left  { opacity: 0; transform: translateX(-34px); }
+    .reveal-right { opacity: 0; transform: translateX(34px); }
+    .reveal-scale { opacity: 0; transform: scale(0.94); }
+    .reveal-left.is-visible,
+    .reveal-right.is-visible,
+    .reveal-scale.is-visible { opacity: 1; transform: none; }
+
+    /* Underline that grows in under each section heading */
+    h2.reveal::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 3px;
+      margin-top: 18px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent), rgba(0, 113, 227, 0));
+      transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+    }
+
+    h2.reveal.is-visible::after { width: 64px; }
+
+    #cta h2.reveal::after { margin-left: auto; margin-right: auto; }
+
+    /* Magnetic buttons — JS sets --bx/--by from cursor proximity */
+    .magnetic {
+      transform: translate(var(--bx, 0px), var(--by, 0px)) scale(var(--bs, 1));
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s, border-color 0.2s;
+    }
+
+    .magnetic.is-magnetic { transition: transform 0.1s ease-out, background 0.2s, border-color 0.2s; }
+
+    /* Link arrows that slide on hover */
+    .btn-secondary svg { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+    .btn-secondary:hover svg { transform: translateX(5px); }
+
+    /* Stats count up and their divider lines grow */
+    .stat { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+    .stat:hover { transform: translateY(-3px); }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .reveal, .reveal.is-visible { opacity: 1; transform: none; transition: none; }
+      .reveal, .reveal.is-visible,
+      .reveal-left, .reveal-right, .reveal-scale,
+      .reveal-left.is-visible, .reveal-right.is-visible, .reveal-scale.is-visible {
+        opacity: 1; transform: none; transition: none;
+      }
+      .tilt, .magnetic { transform: none !important; }
+      .draw-icon path { stroke-dasharray: none; stroke-dashoffset: 0; }
+      h2.reveal::after, h2.reveal.is-visible::after { width: 64px; transition: none; }
+      #scroll-progress { display: none; }
       *, *::before, *::after {
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
@@ -989,6 +1115,8 @@
 </head>
 <body>
 
+  <div id="scroll-progress" aria-hidden="true"></div>
+
   <!-- NAV -->
   <nav>
     <div class="nav-inner">
@@ -1015,8 +1143,8 @@
     <p class="hero-sub">Pricing a deal, replacing an ERP, or putting AI to work — the failure mode is always the same: acting on numbers and processes nobody actually verified.</p>
     <p class="hero-sub-small">Based in Prague, Czechia. AI agent implementation, ERP migration, and financial due diligence for Czech &amp; EU small and mid-sized businesses.</p>
     <div class="hero-actions">
-      <a href="#cta" class="btn-primary">Book Free 30-Min Call</a>
-      <a href="#services" class="btn-secondary">
+      <a href="#cta" class="btn-primary magnetic">Book Free 30-Min Call</a>
+      <a href="#services" class="btn-secondary magnetic">
         Our Services
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -1481,7 +1609,7 @@
       <h2>Let's find out<br>what's actually true.</h2>
       <p>Book a free 30-minute call — whether you have a deal to verify, an ERP to replace, or a process worth automating. No pitch, no pressure. If it isn't a fit, we'll say so.</p>
       <div class="contact-form-wrap" style="text-align: center;">
-        <a href="https://calendly.com/maxkostenko18/30min" target="_blank" rel="noopener" class="btn-white" style="max-width: 360px; margin: 0 auto;">Book Free Discovery Call →</a>
+        <a href="https://calendly.com/maxkostenko18/30min" target="_blank" rel="noopener" class="btn-white magnetic" style="max-width: 360px; margin: 0 auto;">Book Free Discovery Call →</a>
         <p class="form-note">No spam. No sales calls. Reply within 24 hours.</p>
       </div>
       <div class="contact-form-wrap" style="margin-top: 56px;">
@@ -1535,6 +1663,7 @@
     const navLinks = document.getElementById('navLinks');
     const setNav = open => {
       navLinks.classList.toggle('open', open);
+      hamburger.classList.toggle('open', open);
       hamburger.setAttribute('aria-expanded', String(open));
     };
     hamburger.addEventListener('click', () => setNav(!navLinks.classList.contains('open')));
@@ -1602,6 +1731,14 @@
         if (i > 0) el.style.setProperty('--reveal-delay', Math.min(i * 0.08, 0.4).toFixed(2) + 's');
         observer.observe(el);
       });
+
+      // Give some blocks a direction so the page doesn't only rise:
+      // the two-column bands slide in from their own side, and the
+      // wide feature bands scale up instead.
+      document.querySelectorAll('.insight-quote').forEach(el => el.classList.add('reveal-left'));
+      document.querySelectorAll('.insight-item').forEach(el => el.classList.add('reveal-right'));
+      document.querySelectorAll('.roi-band, .ctx-band').forEach(el => el.classList.add('reveal-scale'));
+      document.querySelectorAll('.principle-card').forEach(el => el.classList.add('reveal-right'));
     })();
 
     // Count-up numbers when they scroll into view
@@ -1636,6 +1773,114 @@
       }, { threshold: 0.6 });
 
       counters.forEach(el => observer.observe(el));
+    })();
+
+    // ── Everything below is motion-only: skipped entirely when the
+    //    visitor prefers reduced motion, or on coarse-pointer devices
+    //    where cursor-driven effects have no meaning.
+    (function () {
+      const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return;
+      const finePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+      // Scroll progress bar
+      (function () {
+        const bar = document.getElementById('scroll-progress');
+        if (!bar) return;
+        let ticking = false;
+        const update = () => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const p = max > 0 ? window.scrollY / max : 0;
+          bar.style.transform = 'scaleX(' + Math.min(Math.max(p, 0), 1).toFixed(4) + ')';
+          ticking = false;
+        };
+        window.addEventListener('scroll', () => {
+          if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }, { passive: true });
+        window.addEventListener('resize', update, { passive: true });
+        update();
+      })();
+
+      // Hero parallax — content drifts up and fades as you scroll past it
+      (function () {
+        const hero = document.getElementById('hero');
+        if (!hero) return;
+        const layers = hero.querySelectorAll('h1, .hero-sub, .hero-sub-small, .hero-actions, .hero-eyebrow');
+        let ticking = false;
+        const update = () => {
+          const y = window.scrollY;
+          if (y < window.innerHeight) {
+            layers.forEach((el, i) => {
+              const depth = 0.06 + i * 0.02;
+              el.style.transform = 'translate3d(0, ' + (y * depth).toFixed(1) + 'px, 0)';
+              el.style.opacity = String(Math.max(1 - y / (window.innerHeight * 0.75), 0));
+            });
+          }
+          ticking = false;
+        };
+        window.addEventListener('scroll', () => {
+          if (!ticking) { ticking = true; requestAnimationFrame(update); }
+        }, { passive: true });
+      })();
+
+      // SVG icons draw themselves in — measure each path so the dash
+      // animation matches its real length.
+      document.querySelectorAll('.icon-wrap svg').forEach(svg => {
+        const paths = svg.querySelectorAll('path');
+        let max = 0;
+        paths.forEach(path => {
+          try {
+            const len = path.getTotalLength();
+            if (len > max) max = len;
+          } catch (e) { /* getTotalLength unsupported — leave icon static */ }
+        });
+        if (max > 0) {
+          svg.classList.add('draw-icon');
+          svg.style.setProperty('--icon-len', Math.ceil(max));
+        }
+      });
+
+      if (!finePointer) return;
+
+      // 3D tilt on cards, following the cursor
+      document.querySelectorAll('.service-card, .process-step').forEach(card => {
+        card.classList.add('tilt');
+        card.addEventListener('pointermove', e => {
+          const r = card.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width;
+          const py = (e.clientY - r.top) / r.height;
+          card.classList.add('is-tilting');
+          card.style.setProperty('--ry', ((px - 0.5) * 6).toFixed(2) + 'deg');
+          card.style.setProperty('--rx', ((0.5 - py) * 6).toFixed(2) + 'deg');
+          card.style.setProperty('--ty', '-4px');
+          card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+          card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+        });
+        card.addEventListener('pointerleave', () => {
+          card.classList.remove('is-tilting');
+          card.style.setProperty('--rx', '0deg');
+          card.style.setProperty('--ry', '0deg');
+          card.style.setProperty('--ty', '0px');
+        });
+      });
+
+      // Magnetic buttons — pull gently toward the cursor when it's close
+      document.querySelectorAll('.magnetic').forEach(btn => {
+        const radius = 90;
+        btn.addEventListener('pointermove', e => {
+          const r = btn.getBoundingClientRect();
+          const dx = e.clientX - (r.left + r.width / 2);
+          const dy = e.clientY - (r.top + r.height / 2);
+          btn.classList.add('is-magnetic');
+          btn.style.setProperty('--bx', (dx * 0.18).toFixed(1) + 'px');
+          btn.style.setProperty('--by', (dy * 0.28).toFixed(1) + 'px');
+        });
+        btn.addEventListener('pointerleave', () => {
+          btn.classList.remove('is-magnetic');
+          btn.style.setProperty('--bx', '0px');
+          btn.style.setProperty('--by', '0px');
+        });
+      });
     })();
   </script>
 </body>
