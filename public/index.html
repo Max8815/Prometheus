@@ -940,28 +940,34 @@
        would strand its lower half offscreen. The rail measures ~544px, so 680
        leaves room for the 52px nav plus breathing space.
        This query must stay in sync with RAIL_QUERY in the script below. */
-    .uc-rail { position: relative; }
+    /* Rail metrics live here so the stylesheet and sizeRail() below cannot
+       drift apart; the JS reads them straight off the element. */
+    .uc-rail { position: relative; --uc-card-w: 520px; --uc-gap: 16px; --uc-head-w: 180px; --uc-layer-gap: 32px; }
 
     @media (min-width: 901px) and (min-height: 680px) {
       .uc-rail { overflow: hidden; margin: 0 -4px; padding: 4px 4px 30px; }
 
       /* stretch keeps every card the same height across the whole rail, so the
          tops and bottoms line up as one continuous deck. */
+      /* No `width: max-content` here. Safari derives the intrinsic width of a
+         nested flex container from its children's unwrapped text instead of
+         their flex-basis, which inflated this track by thousands of pixels and
+         left huge voids between the layers. sizeRail() in the script sets an
+         explicit width on the track, each layer and each card row instead. */
       .uc-rail-track {
         display: flex;
         align-items: stretch;
         gap: 32px;
-        width: max-content;
         will-change: transform;
       }
 
-      .uc-rail .uc-layer { display: flex; align-items: stretch; gap: 16px; }
+      .uc-rail .uc-layer { display: flex; align-items: stretch; gap: 16px; flex: 0 0 auto; }
       .uc-rail .uc-layer + .uc-layer { margin-top: 0; }
 
       /* The layer heading is a chapter marker that travels past. Its accent
          rule runs the full card height; the copy starts at the top. */
       .uc-rail .uc-layer-head {
-        flex: 0 0 180px;
+        flex: 0 0 var(--uc-head-w);
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
@@ -973,12 +979,12 @@
       }
 
       .uc-rail .uc-layer-head p { margin-left: 0; text-align: left; }
-      .uc-rail .services-grid { display: flex; align-items: stretch; gap: 16px; }
+      .uc-rail .services-grid { display: flex; align-items: stretch; gap: 16px; flex: 0 0 auto; }
 
       /* Much wider than the grid cards on purpose. Card width drives rail
          height here: the same copy at 420px wraps into a 638px rail, too tall
          to pin on a 717px screen; at 520px it wraps into 544px, which fits. */
-      .uc-rail .service-card { flex: 0 0 520px; padding: 26px; }
+      .uc-rail .service-card { flex: 0 0 var(--uc-card-w); width: var(--uc-card-w); padding: 26px; }
       .uc-rail .service-tagline { font-size: 14px; line-height: 1.6; }
     }
 
@@ -1091,6 +1097,7 @@
         top: var(--nav-h); left: 0; right: 0;
         background: rgba(255,255,255,0.97);
         backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px); /* Safari still needs the prefix */
         padding: 24px;
         border-bottom: 0.5px solid rgba(0,0,0,0.1);
         gap: 20px;
@@ -1849,8 +1856,46 @@
         const bar = document.querySelector('.uc-progress');
         if (!track) return;
 
+        // Explicit widths for every flex box in the rail, derived from the card
+        // count. Without this the track is sized by intrinsic (max-content)
+        // layout, which Safari computes from the cards' unwrapped text rather
+        // than their flex-basis — the track came out thousands of pixels too
+        // wide, so the layers were separated by voids and the scrub distance
+        // (measured off scrollWidth below) was inflated to match.
+        const px = name => parseFloat(getComputedStyle(rail).getPropertyValue(name)) || 0;
+        const layers = Array.from(rail.querySelectorAll('.uc-layer'));
+
+        function sizeRail() {
+          const cardW = px('--uc-card-w');
+          const gap = px('--uc-gap');
+          const headW = px('--uc-head-w');
+          const layerGap = px('--uc-layer-gap');
+          let total = 0;
+          layers.forEach((layer, i) => {
+            const row = layer.querySelector('.services-grid');
+            const n = row ? row.querySelectorAll('.service-card').length : 0;
+            const rowW = n ? n * cardW + (n - 1) * gap : 0;
+            if (row) row.style.width = rowW + 'px';
+            const layerW = headW + gap + rowW;
+            layer.style.width = layerW + 'px';
+            total += layerW + (i ? layerGap : 0);
+          });
+          track.style.width = total + 'px';
+        }
+
+        function clearRailSize() {
+          track.style.width = '';
+          layers.forEach(layer => {
+            layer.style.width = '';
+            const row = layer.querySelector('.services-grid');
+            if (row) row.style.width = '';
+          });
+        }
+
+        sizeRail();
+
         const distance = () => Math.max(0, track.scrollWidth - rail.clientWidth);
-        if (distance() <= 0) return;
+        if (distance() <= 0) { clearRailSize(); return; }
         rail.classList.add('is-pinned');
 
         const tween = gsap.to(track, {
@@ -1873,6 +1918,7 @@
 
         return () => {
           rail.classList.remove('is-pinned');
+          clearRailSize();
           tween.scrollTrigger && tween.scrollTrigger.kill();
           tween.kill();
         };
