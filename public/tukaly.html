@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tukaly — photo of an invoice, booked in ABRA Flexi | MK Solution</title>
+  <meta name="description" content="Send a photo of an invoice to a Telegram bot — it is read, checked and booked into ABRA Flexi, then reviewed by our accountant and filed with your tax declaration. Simple, fast, reliable, cheap. Only for our clients, only in ABRA Flexi." />
+  <link rel="canonical" href="https://mk4ai.com/tukaly" />
+
+  <!-- Social sharing (LinkedIn, Slack, WhatsApp) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mk4ai.com/tukaly" />
+  <meta property="og:site_name" content="MK Solution" />
+  <meta property="og:title" content="Tukaly — take a photo, the bill is already in your accounting" />
+  <meta property="og:description" content="Photo or PDF → Telegram bot → ABRA Flexi → our accountant → tax declaration. Simple, fast, reliable, cheap. Only for our clients, only in ABRA Flexi." />
+  <meta property="og:image" content="https://mk4ai.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Tukaly — take a photo of an invoice, it books itself into ABRA Flexi." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tukaly — take a photo, the bill is already in your accounting" />
+  <meta name="twitter:description" content="Photo or PDF → Telegram bot → ABRA Flexi → our accountant → tax declaration." />
+  <meta name="twitter:image" content="https://mk4ai.com/og-image.png" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230071e3'/%3E%3Ctext x='32' y='43' font-family='Helvetica,Arial,sans-serif' font-size='28' font-weight='600' fill='white' text-anchor='middle'%3EMK%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet" />
+  <style>
+
+    :root {
+      --ink:            #1d1d1f;
+      --ink-2:          #6e6e73;
+      --ink-3:          #86868b;
+      --surface:        #ffffff;
+      --surface-2:      #f5f5f7;
+      --surface-3:      #fbfbfd;
+      --accent:         #0071e3;
+      --accent-hover:   #0077ed;
+      --accent-light:   rgba(0, 113, 227, 0.08);
+      --border:         rgba(0, 0, 0, 0.08);
+      --border-strong:  rgba(0, 0, 0, 0.14);
+      --radius-sm:      12px;
+      --radius:         18px;
+      --radius-lg:      28px;
+      --max:            1080px;
+      --nav-h:          52px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: var(--nav-h);
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.12);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 1px 24px rgba(0, 0, 0, 0.07);
+    }
+
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .nav-logo {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--ink);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.15s;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      background: var(--accent) !important;
+      color: #fff !important;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      padding: 7px 16px;
+      border-radius: 980px;
+      text-decoration: none;
+      opacity: 1 !important;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--accent-hover) !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      padding-top: calc(var(--nav-h) + 96px);
+      padding-bottom: 120px;
+      padding-left: 24px;
+      padding-right: 24px;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0, 113, 227, 0.10) 0%, transparent 70%), var(--surface-3);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Slowly drifting ambient glow behind the hero content */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -30%; left: 15%;
+      width: 70%; height: 80%;
+      background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(52, 170, 220, 0.10) 0%, transparent 70%);
+      pointer-events: none;
+      animation: glow-drift 16s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    #hero > * { position: relative; }
+
+    @keyframes glow-drift {
+      from { transform: translate3d(-6%, 0, 0) scale(1); }
+      to   { transform: translate3d(6%, 4%, 0) scale(1.15); }
+    }
+
+    /* Staggered entrance on page load */
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(26px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .hero-eyebrow   { animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+    #hero h1        { animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both; }
+    .hero-sub       { animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both; }
+    .hero-sub-small { animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.44s both; }
+    .hero-actions   { animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.56s both; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 5px 14px;
+      border-radius: 980px;
+      margin-bottom: 28px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    h1 {
+      font-size: clamp(38px, 6vw, 66px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -2.2px;
+      color: var(--ink);
+      margin-bottom: 24px;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #0071e3 0%, #34aadc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(17px, 2.2vw, 21px);
+      font-weight: 400;
+      color: var(--ink-2);
+      max-width: 580px;
+      margin: 0 auto 16px;
+      line-height: 1.6;
+      letter-spacing: -0.2px;
+    }
+
+    .hero-sub-small {
+      font-size: 15px;
+      color: var(--ink-3);
+      margin: 0 auto 44px;
+      max-width: 460px;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-size: 17px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 980px;
+      text-decoration: none;
+      letter-spacing: -0.2px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); transform: scale(1.02); }
+    .btn-primary:active { transform: scale(0.97); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--accent);
+      font-size: 17px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 980px;
+      text-decoration: none;
+      border: 1.5px solid rgba(0, 113, 227, 0.3);
+      letter-spacing: -0.2px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--accent); background: var(--accent-light); }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      background: var(--surface-2);
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      padding: 48px 24px;
+    }
+
+    .stats-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat {
+      text-align: center;
+      padding: 0 20px;
+      border-right: 0.5px solid var(--border);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-num span { color: var(--accent); }
+    .stat-label { font-size: 14px; color: var(--ink-2); letter-spacing: -0.1px; }
+
+    /* ── SHARED SECTION ── */
+    section { padding: 100px 24px; }
+
+    .section-inner { max-width: var(--max); margin: 0 auto; }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4.5vw, 48px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1.2px;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .section-desc {
+      font-size: 17px;
+      color: var(--ink-2);
+      max-width: 520px;
+      line-height: 1.65;
+      margin-bottom: 56px;
+      letter-spacing: -0.1px;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--surface); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-left p {
+      font-size: 16px;
+      color: var(--ink-2);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .about-left p strong { color: var(--ink); font-weight: 600; }
+    .about-left h2 { margin-bottom: 24px; }
+
+    .about-right {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 8px;
+    }
+
+    .principle-card {
+      background: var(--surface-2);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      border: 0.5px solid var(--border);
+    }
+
+    .principle-card h4 {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .principle-card p { font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--surface-3); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .service-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      transition: box-shadow 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), rgba(0,113,227,0));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .service-card:hover { box-shadow: 0 12px 48px rgba(0,0,0,0.10); transform: translateY(-4px); }
+    .service-card:hover::after { opacity: 1; }
+
+    .icon-wrap { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+    .service-card:hover .icon-wrap,
+    .process-step:hover .step-num { transform: scale(1.08); }
+    .step-num { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+
+    .icon-wrap {
+      width: 46px; height: 46px;
+      background: var(--accent-light);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    .icon-wrap svg {
+      width: 21px; height: 21px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .service-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .service-tagline { font-size: 14px; color: var(--ink-2); margin-bottom: 18px; line-height: 1.6; }
+
+    .service-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+
+    .service-card ul li {
+      font-size: 14px;
+      color: var(--ink-2);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .service-card ul li::before {
+      content: '';
+      width: 4px; height: 4px;
+      min-width: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-top: 8px;
+    }
+
+    /* ── HOW WE WORK ── */
+    #how-we-work { background: var(--surface-3); }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .process-step {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .process-step::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), rgba(0,113,227,0));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .process-step:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .process-step:hover::after { opacity: 1; }
+
+    .step-num {
+      width: 46px; height: 46px;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    .process-step h3 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+
+    .process-step p { font-size: 15px; color: var(--ink-2); line-height: 1.7; }
+
+    /* ── INSIGHT BAND ── */
+    #insight { background: var(--surface); padding: 80px 24px; }
+
+    .insight-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .insight-quote {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 600;
+      letter-spacing: -0.8px;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .insight-quote em { font-style: italic; color: var(--ink-2); }
+
+    .insight-list { display: flex; flex-direction: column; gap: 20px; }
+
+    .insight-item { display: flex; gap: 16px; align-items: flex-start; }
+
+    .insight-item .num {
+      width: 28px; height: 28px;
+      min-width: 28px;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .insight-item p { font-size: 15px; color: var(--ink-2); line-height: 1.65; }
+    .insight-item p strong { color: var(--ink); font-weight: 600; }
+
+    /* ── WHY US ── */
+    #why { background: var(--surface-3); }
+
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .diff-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: box-shadow 0.2s;
+    }
+
+    .diff-card:hover { box-shadow: 0 6px 32px rgba(0,0,0,0.07); }
+
+    .diff-card h4 {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .diff-card p { font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+
+    /* ── CTA BAND ── */
+    #cta {
+      background: linear-gradient(160deg, #0a0a0a 0%, #0f1a2e 50%, #0a0a0a 100%);
+      padding: 120px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0, 113, 227, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+      animation: cta-glow 9s ease-in-out infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes cta-glow {
+      0%, 100% { opacity: 0.75; transform: scale(1); }
+      50%      { opacity: 1;    transform: scale(1.12); }
+    }
+
+    #cta .section-inner { position: relative; }
+    #cta .eyebrow { color: rgba(255,255,255,0.35); }
+
+    #cta h2 {
+      color: #fff;
+      margin-bottom: 16px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #cta > .section-inner > p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.55);
+      max-width: 440px;
+      margin: 0 auto 40px;
+      line-height: 1.65;
+      letter-spacing: -0.1px;
+    }
+
+    /* ── CONTACT FORM ── */
+    .contact-form-wrap {
+      max-width: 540px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .form-col { display: flex; flex-direction: column; gap: 12px; }
+
+    input, textarea, select {
+      background: rgba(255,255,255,0.06);
+      border: 0.5px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 13px 16px;
+      color: #fff;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.3); }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: rgba(0,113,227,0.6); }
+    select option { background: #111; }
+    textarea { resize: vertical; min-height: 100px; }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background: #fff;
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 500;
+      padding: 14px 32px;
+      border-radius: 980px;
+      text-decoration: none;
+      letter-spacing: -0.2px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 4px;
+    }
+
+    .btn-white:hover { background: #f0f0f5; transform: scale(1.01); }
+
+    .form-note {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* ── FOOTER ── */
+    footer { background: #1d1d1f; padding: 40px 24px; }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+    }
+
+    .footer-links { display: flex; gap: 24px; }
+
+    .footer-links a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+    .footer-legal {
+      max-width: var(--max);
+      margin: 20px auto 0;
+      padding-top: 20px;
+      border-top: 0.5px solid rgba(255,255,255,0.07);
+      font-size: 12px;
+      color: rgba(255,255,255,0.22);
+      line-height: 1.6;
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      background: #fff;
+      color: var(--ink);
+      border: 0.5px solid var(--border-strong);
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 999;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    #toast.show { transform: translateY(0); opacity: 1; }
+
+    .tri-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    /* ── ROI BAND ── */
+    .roi-band {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 40px;
+      align-items: center;
+      background: var(--surface-2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      margin-bottom: 40px;
+    }
+
+    .roi-metric { text-align: center; padding-right: 40px; border-right: 0.5px solid var(--border); }
+
+    .roi-num {
+      display: block;
+      font-size: clamp(46px, 6vw, 68px);
+      font-weight: 700;
+      letter-spacing: -3px;
+      line-height: 1;
+      color: var(--accent);
+    }
+
+    .roi-metric span:last-child {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-top: 10px;
+      max-width: 150px;
+    }
+
+    .roi-copy h3 {
+      font-size: clamp(19px, 2.2vw, 23px);
+      font-weight: 600;
+      letter-spacing: -0.6px;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .roi-copy p { font-size: 15px; color: var(--ink-2); line-height: 1.7; }
+
+    /* ── USE CASE LAYERS ── */
+    .uc-layer + .uc-layer { margin-top: 56px; }
+
+    .uc-layer-head {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .uc-layer-num {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+    }
+
+    .uc-layer-head h3 {
+      font-size: clamp(19px, 2.2vw, 22px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+    }
+
+    .uc-layer-head p {
+      font-size: 14px;
+      color: var(--ink-2);
+      margin-left: auto;
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    /* ── CONTEXT COMPARISON ── */
+    .ctx-band {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 32px;
+      align-items: start;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      margin-bottom: 40px;
+    }
+
+    .ctx-num {
+      display: block;
+      font-size: clamp(30px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -1.6px;
+      line-height: 1.05;
+      color: var(--ink);
+    }
+
+    .ctx-side--agent .ctx-num { color: var(--accent); }
+
+    .ctx-unit {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin: 10px 0 12px;
+    }
+
+    .ctx-side p { font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+
+    .ctx-vs {
+      align-self: start;
+      padding-top: 12px;
+      font-size: 15px;
+      font-style: italic;
+      color: var(--ink-3);
+    }
+
+    .ctx-note {
+      padding-top: 24px;
+      border-top: 0.5px solid var(--border);
+      font-size: 15px;
+      color: var(--ink-2);
+      line-height: 1.7;
+    }
+
+    .ctx-note strong { color: var(--ink); font-weight: 600; }
+
+    /* ── SCROLL REVEAL ──
+       The .reveal class is added by JS only, so content stays visible
+       when JS is unavailable, fails, or IntersectionObserver is missing.
+       --reveal-delay is set per element by JS to stagger siblings. */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--reveal-delay, 0s);
+    }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* ── GSAP MOTION ──
+       Entrance states live in JS (gsap.from/fromTo), never in CSS, so a blocked
+       or slow CDN can never leave content stuck invisible. */
+    .split-line { will-change: transform; }
+
+    /* ── HORIZONTAL USE-CASE RAIL ──
+       On a wide enough viewport the three layers become one long horizontal
+       track that GSAP pins and scrubs left as you scroll down. Anywhere else
+       the rail is inert and the layers fall back to the original stacked grid.
+       The min-height guard matters: pinning a rail taller than the viewport
+       would strand its lower half offscreen. The rail measures ~544px, so 680
+       leaves room for the 52px nav plus breathing space.
+       This query must stay in sync with RAIL_QUERY in the script below. */
+    /* Rail metrics live here so the stylesheet and sizeRail() below cannot
+       drift apart; the JS reads them straight off the element. */
+    .uc-rail { position: relative; --uc-card-w: 520px; --uc-gap: 16px; --uc-head-w: 180px; --uc-layer-gap: 32px; }
+
+    @media (min-width: 901px) and (min-height: 680px) {
+      .uc-rail { overflow: hidden; margin: 0 -4px; padding: 4px 4px 30px; }
+
+      /* stretch keeps every card the same height across the whole rail, so the
+         tops and bottoms line up as one continuous deck. */
+      /* No `width: max-content` here. Safari derives the intrinsic width of a
+         nested flex container from its children's unwrapped text instead of
+         their flex-basis, which inflated this track by thousands of pixels and
+         left huge voids between the layers. sizeRail() in the script sets an
+         explicit width on the track, each layer and each card row instead. */
+      .uc-rail-track {
+        display: flex;
+        align-items: stretch;
+        gap: 32px;
+        will-change: transform;
+      }
+
+      .uc-rail .uc-layer { display: flex; align-items: stretch; gap: 16px; flex: 0 0 auto; }
+      .uc-rail .uc-layer + .uc-layer { margin-top: 0; }
+
+      /* The layer heading is a chapter marker that travels past. Its accent
+         rule runs the full card height; the copy starts at the top. */
+      .uc-rail .uc-layer-head {
+        flex: 0 0 var(--uc-head-w);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 10px;
+        margin-bottom: 0;
+        padding: 0 0 0 18px;
+        border-bottom: none;
+        border-left: 2px solid var(--accent);
+      }
+
+      .uc-rail .uc-layer-head p { margin-left: 0; text-align: left; }
+      .uc-rail .services-grid { display: flex; align-items: stretch; gap: 16px; flex: 0 0 auto; }
+
+      /* Much wider than the grid cards on purpose. Card width drives rail
+         height here: the same copy at 420px wraps into a 638px rail, too tall
+         to pin on a 717px screen; at 520px it wraps into 544px, which fits. */
+      .uc-rail .service-card { flex: 0 0 var(--uc-card-w); width: var(--uc-card-w); padding: 26px; }
+      .uc-rail .service-tagline { font-size: 14px; line-height: 1.6; }
+    }
+
+    /* ── PROOF STRIP ──
+       Sits after the rail, so it reads as evidence for the whole section
+       rather than for whichever card happened to hold the callout. */
+    .uc-proof {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .uc-proof-item {
+      background: var(--accent-light);
+      border-radius: var(--radius-sm);
+      padding: 18px 22px;
+    }
+
+    .uc-proof-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .uc-proof-item p:last-child {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* Scrub progress under the rail — the only cue that the section is pinned.
+       Lives inside .uc-rail so it gets pinned with it; a sibling would scroll
+       out of view the moment the rail pinned. */
+    .uc-progress {
+      display: none;
+      position: absolute;
+      left: 4px; right: 4px; bottom: 0;
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .uc-progress span {
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: var(--accent);
+      transform: scaleX(var(--uc-progress, 0));
+      transform-origin: left;
+    }
+
+    .uc-rail.is-pinned .uc-progress { display: block; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .reveal.is-visible { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .insight-inner { grid-template-columns: 1fr; }
+      .diff-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      section { padding: 80px 20px; }
+      #hero { padding: calc(var(--nav-h) + 60px) 20px 80px; }
+      h1 { letter-spacing: -1.5px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat { padding: 20px 0; }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(3) { border-top: 0.5px solid var(--border); }
+      .stat:nth-child(4) { border-top: 0.5px solid var(--border); border-right: none; }
+      .diff-grid { grid-template-columns: 1fr; }
+      .tri-grid { grid-template-columns: 1fr; }
+      .roi-band { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; }
+      .roi-metric { text-align: left; padding-right: 0; border-right: none; padding-bottom: 22px; border-bottom: 0.5px solid var(--border); }
+      .roi-metric span:last-child { max-width: none; }
+      .uc-layer-head { flex-wrap: wrap; gap: 8px 12px; }
+      .uc-layer-head p { margin-left: 0; text-align: left; flex-basis: 100%; }
+      .uc-proof { grid-template-columns: 1fr; }
+      .ctx-band { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; }
+      .ctx-vs { justify-self: start; padding: 0; }
+      .ctx-note { grid-column: 1 !important; margin-top: 4px; }
+      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: var(--nav-h); left: 0; right: 0;
+        background: rgba(255,255,255,0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px); /* Safari still needs the prefix */
+        padding: 24px;
+        border-bottom: 0.5px solid rgba(0,0,0,0.1);
+        gap: 20px;
+      }
+      .nav-links.open a { font-size: 17px; opacity: 1; }
+    }
+
+    /* ── SUBPAGE ADDITIONS — language switch, nothing else ──
+       The stylesheet above is mk4ai.com's, verbatim. */
+    html[data-lang="en"] .lang-cs,
+    html[data-lang="cs"] .lang-en { display: none; }
+
+    .nav-right { display: flex; align-items: center; gap: 18px; }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--surface-2);
+      border: 0.5px solid var(--border);
+      border-radius: 980px;
+      padding: 2px;
+    }
+
+    .lang-switch button {
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--ink-3);
+      background: transparent;
+      border: none;
+      border-radius: 980px;
+      padding: 4px 9px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .lang-switch button[aria-pressed="true"] {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    @media (max-width: 680px) { .nav-right { gap: 12px; } }
+
+  </style>
+
+  <!-- Remember the language before first paint, so a Czech visitor never sees
+       the English version flash up. Crawlers (no localStorage, en-US) get EN. -->
+  <script>
+    (function () {
+      try {
+        var m = /[?&]lang=(en|cs)/i.exec(location.search);
+        var stored = localStorage.getItem('tukaly_lang');
+        var lang = (m && m[1].toLowerCase()) || stored || ((/^cs\b/i.test(navigator.language || '')) ? 'cs' : 'en');
+        if (lang === 'cs') {
+          document.documentElement.setAttribute('data-lang', 'cs');
+          document.documentElement.lang = 'cs';
+          document.title = 'Tukaly — fotka faktury, zaúčtovaná v ABRA Flexi | MK Solution';
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Motion stack — the same four CDN bundles mk4ai.com loads. Deferred and
+       entirely optional: the page is complete and usable without any of it. -->
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">MK Solution</a>
+      <div class="nav-right">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about"><span class="lang-en" lang="en">About</span><span class="lang-cs" lang="cs">Co to je</span></a></li>
+          <li><a href="#how-we-work"><span class="lang-en" lang="en">How it works</span><span class="lang-cs" lang="cs">Jak to funguje</span></a></li>
+          <li><a href="#why"><span class="lang-en" lang="en">Why it pays off</span><span class="lang-cs" lang="cs">Proč to dává smysl</span></a></li>
+          <li><a href="#cta" class="nav-cta"><span class="lang-en" lang="en">Email us</span><span class="lang-cs" lang="cs">Napište nám</span></a></li>
+        </ul>
+        <div class="lang-switch" role="group" aria-label="Language / Jazyk">
+          <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-set-lang="cs" aria-pressed="false">CS</button>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-eyebrow"><span class="lang-en" lang="en">Tukaly · invoice intake for ABRA Flexi</span><span class="lang-cs" lang="cs">Tukaly · faktury rovnou do ABRA Flexi</span></div>
+    <h1 class="lang-en" lang="en">Take a photo. The bill is<br><em>already in your accounting.</em></h1>
+    <h1 class="lang-cs" lang="cs">Vyfoťte fakturu.<br><em>Už je v účetnictví.</em></h1>
+    <p class="hero-sub lang-en" lang="en">Send it to our Telegram bot — a photo, a scan or a PDF. It is read, checked and booked into ABRA Flexi. Our accountant takes it from there: a review, then your tax declaration.</p>
+    <p class="hero-sub lang-cs" lang="cs">Pošlete ji do našeho Telegram bota — fotku, sken nebo PDF. Přečteme ji, zkontrolujeme a zaúčtujeme do ABRA Flexi. Dál už to řeší naše účetní: kontrola a pak vaše daňové přiznání.</p>
+    <p class="hero-sub-small lang-en" lang="en">Simple, fast, reliable, cheap. Only for our clients. Only in ABRA Flexi.</p>
+    <p class="hero-sub-small lang-cs" lang="cs">Jednoduché, rychlé, spolehlivé a levné. Jen pro naše klienty. Jen v ABRA Flexi.</p>
+    <div class="hero-actions">
+      <a href="mailto:maxkostenko18@gmail.com" class="btn-primary"><span class="lang-en" lang="en">Email us</span><span class="lang-cs" lang="cs">Napište nám</span></a>
+      <a href="#how-we-work" class="btn-secondary">
+        <span class="lang-en" lang="en">See how it works</span><span class="lang-cs" lang="cs">Jak to funguje</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat">
+        <div class="stat-num">98<span>%</span></div>
+        <div class="stat-label"><span class="lang-en" lang="en">of invoice fields read correctly — measured on real documents</span><span class="lang-cs" lang="cs">polí faktury přečteno správně — měřeno na reálných dokumentech</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">≈0,017<span> Kč</span></div>
+        <div class="stat-label"><span class="lang-en" lang="en">to read one document</span><span class="lang-cs" lang="cs">za přečtení jednoho dokumentu</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-num lang-en" lang="en">10<span> years</span></div>
+        <div class="stat-num lang-cs" lang="cs">10<span> let</span></div>
+        <div class="stat-label"><span class="lang-en" lang="en">documents kept, as Czech law requires</span><span class="lang-cs" lang="cs">dokladů uchováváme, jak ukládá zákon</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label"><span class="lang-en" lang="en">message is all you send: photo, scan or PDF</span><span class="lang-cs" lang="cs">zpráva, to všechno, co pošlete: fotka, sken nebo PDF</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT — what Tukaly is -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-left">
+          <p class="eyebrow">Tukaly</p>
+          <h2 class="lang-en" lang="en">Send the photo.<br>The invoice is booked.</h2><h2 class="lang-cs" lang="cs">Pošlete fotku.<br>Faktura je zaúčtovaná.</h2>
+          <p><span class="lang-en" lang="en">Tukaly is the invoice intake built into the accounting we do for you. You send a photo, a scan or a PDF to a Telegram bot; it is read, checked and booked into ABRA Flexi as a received invoice — supplier, amounts, VAT, due date and the file itself.</span><span class="lang-cs" lang="cs">Tukaly je příjem faktur zabudovaný do účetnictví, které pro vás vedeme. Pošlete fotku, sken nebo PDF do Telegram bota; přečteme ho, zkontrolujeme a zaúčtujeme do ABRA Flexi jako přijatou fakturu — dodavatele, částky, DPH, splatnost i samotný soubor.</span></p>
+          <p><span class="lang-en" lang="en">Then a person takes over: our accountant reviews what was booked and keeps the documents in order all year — and your tax declaration is submitted from books that are already up to date.</span><span class="lang-cs" lang="cs">Potom převezme člověk: naše účetní zkontroluje, co se zaúčtovalo, a drží dokumenty v pořádku po celý rok — daňové přiznání se podává z knih, které už jsou aktuální.</span></p>
+          <p><span class="lang-en" lang="en">Nothing to install and no new system for your team. It works because we keep your books in ABRA Flexi — which is exactly why Tukaly is only for our clients.</span><span class="lang-cs" lang="cs">Nic se neinstaluje a žádný nový systém pro váš tým. Funguje to, protože vaše knihy vedeme v ABRA Flexi — a přesně proto je Tukaly jen pro naše klienty.</span></p>
+          <p style="font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-3); margin: 28px 0 10px;"><span class="lang-en" lang="en">Works with</span><span class="lang-cs" lang="cs">Poradí si s</span></p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span style="font-size: 13px; font-weight: 500; color: var(--ink-2); background: var(--surface-2); border: 0.5px solid var(--border); padding: 6px 14px; border-radius: 980px;"><span class="lang-en" lang="en">PDF</span><span class="lang-cs" lang="cs">PDF</span></span><span style="font-size: 13px; font-weight: 500; color: var(--ink-2); background: var(--surface-2); border: 0.5px solid var(--border); padding: 6px 14px; border-radius: 980px;"><span class="lang-en" lang="en">Scans</span><span class="lang-cs" lang="cs">Skeny</span></span><span style="font-size: 13px; font-weight: 500; color: var(--ink-2); background: var(--surface-2); border: 0.5px solid var(--border); padding: 6px 14px; border-radius: 980px;"><span class="lang-en" lang="en">Photos, iPhone included</span><span class="lang-cs" lang="cs">Fotky včetně iPhonu</span></span><span style="font-size: 13px; font-weight: 500; color: var(--ink-2); background: var(--surface-2); border: 0.5px solid var(--border); padding: 6px 14px; border-radius: 980px;"><span class="lang-en" lang="en">Ten at once</span><span class="lang-cs" lang="cs">Deset najednou</span></span></div>
+        </div>
+        <div class="about-right">
+          <div class="principle-card">
+            <h4 class="lang-en" lang="en">Checked before it is saved</h4><h4 class="lang-cs" lang="cs">Kontrola dřív, než se uloží</h4>
+            <p class="lang-en" lang="en">Totals must add up line by line, a document that already arrived is caught as a duplicate, and anything unclear is held for a person instead of being guessed.</p><p class="lang-cs" lang="cs">Částky musí sedět řádek po řádku, doklad, který už dorazil, se zachytí jako duplicita a cokoli nejasného se podrží pro člověka místo tipu.</p>
+          </div>
+          <div class="principle-card">
+            <h4 class="lang-en" lang="en">Your data stays with us</h4><h4 class="lang-cs" lang="cs">Vaše data zůstávají u nás</h4>
+            <p class="lang-en" lang="en">The system runs on our own infrastructure — your documents never pass through a third-party accounting service, and they are kept for the ten years Czech law requires.</p><p class="lang-cs" lang="cs">Systém běží na naší vlastní infrastruktuře — vaše dokumenty neprocházejí cizím účetnickým systémem a uchováváme je deset let, jak ukládá český zákon.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-we-work">
+    <div class="section-inner">
+      <p class="eyebrow"><span class="lang-en" lang="en">How it works</span><span class="lang-cs" lang="cs">Jak to funguje</span></p>
+      <h2 class="lang-en" lang="en">You take the photo.<br>We do the rest.</h2><h2 class="lang-cs" lang="cs">Vyfoťte fakturu.<br>O zbytek se postaráme my.</h2>
+      <p class="section-desc" style="margin-bottom: 72px;"><span class="lang-en" lang="en">One message in Telegram replaces the whole intake routine — printing, scanning, typing and chasing the documents that went missing.</span><span class="lang-cs" lang="cs">Jedna zpráva v Telegramu nahradí celý papírový kolotoč — tisk, skenování, přepisování a shánění dokladů, které se někde ztratily.</span></p>
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <h3 class="lang-en" lang="en">Take a photo</h3><h3 class="lang-cs" lang="cs">Vyfoťte fakturu</h3>
+          <p class="lang-en" lang="en">Paper invoice on your desk? Snap it with your phone. A PDF or an email attachment works exactly the same — ten invoices at once is fine too.</p><p class="lang-cs" lang="cs">Papírová faktura na stole? Vyfoťte ji mobilem. PDF nebo příloha z e-mailu fungují stejně — klidně i deset faktur najednou.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <h3 class="lang-en" lang="en">Send it to the bot</h3><h3 class="lang-cs" lang="cs">Pošlete ji botovi</h3>
+          <p class="lang-en" lang="en">One message in Telegram. Nothing to install, no form to fill in, no scanning machine and no separate portal to log into.</p><p class="lang-cs" lang="cs">Jedna zpráva v Telegramu. Nic se neinstaluje, nevyplňuje se formulář, nepotřebujete skener ani samostatný portál s přihlášením.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <h3 class="lang-en" lang="en">Already in ABRA Flexi</h3><h3 class="lang-cs" lang="cs">Už je v ABRA Flexi</h3>
+          <p class="lang-en" lang="en">The invoice arrives as a received invoice — supplier, amounts, VAT, due date and the file itself. Every figure is checked against the document before it is saved; anything that does not add up is held, never guessed.</p><p class="lang-cs" lang="cs">Faktura dorazí jako přijatá faktura — dodavatel, částky, DPH, splatnost i samotný soubor. Každá částka se ověří proti dokumentu dřív, než se uloží; co nesedí, se podrží, neuhodne.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">04</div>
+          <h3 class="lang-en" lang="en">Our accountant reviews it</h3><h3 class="lang-cs" lang="cs">Naše účetní ji zkontroluje</h3>
+          <p class="lang-en" lang="en">A person checks what was booked and keeps the documents in order all year — then your tax declaration is submitted.</p><p class="lang-cs" lang="cs">Člověk zkontroluje, co se zaúčtovalo, a drží dokumenty v pořádku po celý rok — pak se podá vaše daňové přiznání.</p>
+        </div>
+      </div>
+
+      <p style="margin-top: 40px; font-size: 14px; color: var(--ink-2); line-height: 1.7; max-width: 720px;"><strong style="color: var(--ink);"><span class="lang-en" lang="en">Tukaly does not replace your accountant.</span><span class="lang-cs" lang="cs">Tukaly nenahrazuje vaši účetní.</span></strong> <span class="lang-en" lang="en">It removes the part a machine does better — reading, typing, checking — so the work starts from a booked invoice instead of a shoebox.</span><span class="lang-cs" lang="cs">Odebírá část, kterou stroj zvládne lépe — čtení, přepis, kontrolu — takže práce začíná u zaúčtované faktury místo krabice s doklady.</span></p>
+
+      <div style="margin-top: 40px; padding: 18px 22px; background: var(--accent-light); border-radius: var(--radius-sm); display: flex; align-items: baseline; gap: 12px;">
+        <span style="font-size: 13px; font-weight: 700; color: var(--accent); white-space: nowrap;"><span class="lang-en" lang="en">FOR OUR CLIENTS ONLY</span><span class="lang-cs" lang="cs">JEN PRO NAŠE KLIENTY</span></span>
+        <p style="font-size: 14px; color: var(--ink); line-height: 1.65; margin: 0;"><span class="lang-en" lang="en">Tukaly is switched on for the company whose books we keep in ABRA Flexi. Already our client? One email and it is running for you.</span><span class="lang-cs" lang="cs">Tukaly zapínáme firmě, které vedeme účetnictví v ABRA Flexi. Už jste naši klienti? Jeden e-mail a běží to.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY IT PAYS OFF -->
+  <section id="why" style="background: var(--surface);">
+    <div class="section-inner">
+      <p class="eyebrow"><span class="lang-en" lang="en">Why it pays off</span><span class="lang-cs" lang="cs">Proč to dává smysl</span></p>
+      <h2 class="lang-en" lang="en">Simple, fast, reliable,<br>cheap.</h2><h2 class="lang-cs" lang="cs">Jednoduché, rychlé,<br>spolehlivé, levné.</h2>
+      <p class="section-desc"><span class="lang-en" lang="en">The gain is operational: fewer hands touching the invoice, fewer evenings of typing, fewer surprises when the year closes.</span><span class="lang-cs" lang="cs">Jde o praktický výsledek: méně rukou na faktuře, méně večerů nad přepisováním, méně překvapení na konci roku.</span></p>
+      <div class="ctx-band">
+        <div class="ctx-side">
+          <span class="lang-en ctx-num" lang="en">≈8,500 Kč</span><span class="lang-cs ctx-num" lang="cs">≈8 500 Kč</span>
+          <span class="ctx-unit"><span class="lang-en" lang="en">per month · commercial cloud OCR</span><span class="lang-cs" lang="cs">měsíčně · komerční cloudové OCR</span></span>
+          <p><span class="lang-en" lang="en">Digitoo, Rossum and the like — a monthly subscription to somebody else&#39;s cloud OCR service.</span><span class="lang-cs" lang="cs">Digitoo, Rossum a podobně — měsíční předplatné za cloudové OCR někoho jiného.</span></p>
+        </div>
+        <div class="ctx-vs">vs</div>
+        <div class="ctx-side ctx-side--agent">
+          <span class="lang-en ctx-num" lang="en">≈1,079 Kč</span><span class="lang-cs ctx-num" lang="cs">≈1 079 Kč</span>
+          <span class="ctx-unit"><span class="lang-en" lang="en">per month · our own infrastructure</span><span class="lang-cs" lang="cs">měsíčně · naše vlastní infrastruktura</span></span>
+          <p><span class="lang-en" lang="en">About 2,000 documents a month: ≈14 Kč to read them, ≈65 Kč of electricity for hardware running around the clock, ≈1,000 Kč of administration and monitoring.</span><span class="lang-cs" lang="cs">Asi 2 000 dokumentů měsíčně: ≈14 Kč za jejich přečtení, ≈65 Kč elektřiny pro hardware běžící nepřetržitě, ≈1 000 Kč správy a monitoringu.</span></p>
+        </div>
+        <p class="ctx-note" style="grid-column: 1 / -1;"><span class="lang-en" lang="en"><strong>Monthly saving: ≈7,421 Kč — about 90 %.</strong> The same documents at the same reading accuracy, on our own infrastructure instead of somebody else&#39;s subscription.</span><span class="lang-cs" lang="cs"><strong>Měsíční úspora: ≈7 421 Kč, tedy asi 90 %.</strong> Stejné dokumenty se stejnou přesností čtení, na naší vlastní infrastruktuře místo předplatného někoho jiného.</span></p>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-card">
+          <h4 class="lang-en" lang="en">Simple</h4><h4 class="lang-cs" lang="cs">Jednoduché</h4>
+          <p class="lang-en" lang="en">If you can send a photo in a chat, you can do this. Nothing to install, nothing to learn, no new system for your team.</p><p class="lang-cs" lang="cs">Když umíte poslat fotku v chatu, zvládnete to. Nic se neinstaluje, nic se nemusí učit, žádný nový systém pro váš tým.</p>
+        </div>
+        <div class="diff-card">
+          <h4 class="lang-en" lang="en">Fast</h4><h4 class="lang-cs" lang="cs">Rychlé</h4>
+          <p class="lang-en" lang="en">A few seconds to send. The invoice is usually booked before you have put the phone back on the table.</p><p class="lang-cs" lang="cs">Pár sekund na odeslání. Faktura bývá zaúčtovaná dřív, než odložíte telefon na stůl.</p>
+        </div>
+        <div class="diff-card">
+          <h4 class="lang-en" lang="en">Reliable</h4><h4 class="lang-cs" lang="cs">Spolehlivé</h4>
+          <p class="lang-en" lang="en">Totals must add up, line by line. A document that already arrived is caught as a duplicate. Anything unclear is held for a person — never booked on a guess.</p><p class="lang-cs" lang="cs">Částky musí sedět řádek po řádku. Doklad, který už dorazil, se zachytí jako duplicita. Cokoli nejasného se podrží pro člověka — nikdy se nezaúčtuje tipem.</p>
+        </div>
+        <div class="diff-card">
+          <h4 class="lang-en" lang="en">Cheap</h4><h4 class="lang-cs" lang="cs">Levné</h4>
+          <p class="lang-en" lang="en">A few crowns per invoice instead of an evening of manual typing — reading a single document costs about 0.017 Kč.</p><p class="lang-cs" lang="cs">Pár korun za fakturu místo večera ručního přepisování — přečtení jednoho dokumentu stojí asi 0,017 Kč.</p>
+        </div>
+        <div class="diff-card">
+          <h4 class="lang-en" lang="en">Yours</h4><h4 class="lang-cs" lang="cs">Vaše</h4>
+          <p class="lang-en" lang="en">The system runs on our own infrastructure: your data stays with us, with no third-party accounting service in the middle.</p><p class="lang-cs" lang="cs">Systém běží na naší vlastní infrastruktuře: vaše data zůstávají u nás, uprostřed není žádný cizí účetnický systém.</p>
+        </div>
+        <div class="diff-card">
+          <h4 class="lang-en" lang="en">Documents in order</h4><h4 class="lang-cs" lang="cs">Doklady v pořádku</h4>
+          <p class="lang-en" lang="en">Every invoice is kept together with its file for the ten years Czech law requires, and a copy that already exists is never booked twice.</p><p class="lang-cs" lang="cs">Každá faktura zůstává spolu se souborem deset let, jak ukládá český zákon, a kopie, která už existuje, se nezaúčtuje podruhé.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHT BAND — only for our clients -->
+  <section id="insight" style="background: var(--surface-3);">
+    <div class="insight-inner">
+      <div class="insight-quote">
+        <span class="lang-en" lang="en">Tukaly is part of the accounting we do — <em>only for our clients, only in ABRA Flexi.</em></span><span class="lang-cs" lang="cs">Tukaly je součástí účetnictví, které děláme — <em>jen pro naše klienty, jen v ABRA Flexi.</em></span>
+        <p style="font-size: clamp(16px, 2vw, 22px); font-weight: 400; color: var(--ink-2); margin-top: 24px; letter-spacing: -0.4px; line-height: 1.45;"><span class="lang-en" lang="en">One photo replaces printing, scanning, typing and chasing documents.</span><span class="lang-cs" lang="cs">Jedna fotka nahradí tisk, skenování, přepisování i shánění dokladů.</span></p>
+      </div>
+      <div class="insight-list">
+        <div class="insight-item">
+          <div class="num">1</div>
+          <p><span class="lang-en" lang="en"><strong>Bookkeeping with us.</strong> Tukaly is part of the accounting service we provide — it works because we keep your books in ABRA Flexi, from intake to the year-end close.</span><span class="lang-cs" lang="cs"><strong>Účetnictví u nás.</strong> Tukaly je součástí účetnictví, které pro vás vedeme — funguje, protože vaše knihy vedeme v ABRA Flexi, od příjmu dokladů po roční uzávěrku.</span></p>
+        </div>
+        <div class="insight-item">
+          <div class="num">2</div>
+          <p><span class="lang-en" lang="en"><strong>ABRA Flexi only.</strong> Invoices are booked straight into the system your accountant already works in — no detours, no second set of books.</span><span class="lang-cs" lang="cs"><strong>Pouze ABRA Flexi.</strong> Faktury se zaúčtují rovnou do systému, ve kterém už vaše účetní pracuje — bez odboček a bez druhé evidence.</span></p>
+        </div>
+        <div class="insight-item">
+          <div class="num">3</div>
+          <p><span class="lang-en" lang="en"><strong>Switched on for your company.</strong> Already our client? One email and Tukaly is running for you, with your team shown how to send the first invoice.</span><span class="lang-cs" lang="cs"><strong>Zapneme pro vaši firmu.</strong> Už jste naši klienti? Jeden e-mail a Tukaly pro vás běží, tým naučíme poslat první fakturu.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA — the ad -->
+  <section id="cta">
+    <div class="section-inner">
+      <p class="eyebrow"><span class="lang-en" lang="en">Taking new clients</span><span class="lang-cs" lang="cs">Přijímáme nové klienty</span></p>
+      <h2 class="lang-en" lang="en">We are taking new clients<br>for accounting.</h2><h2 class="lang-cs" lang="cs">Přijímáme nové klienty<br>pro účetnictví.</h2>
+      <p><span class="lang-en" lang="en">Bookkeeping, payroll, VAT returns and year-end closing — with your invoices arriving from Telegram already booked and checked.</span><span class="lang-cs" lang="cs">Vedení účetnictví, mzdy, přiznání k DPH a roční uzávěrky — s fakturami, které dorazí z Telegramu už zaúčtované a zkontrolované.</span></p>
+      <div class="contact-form-wrap" style="text-align: center;">
+        <p class="form-note" style="font-size: 14px; margin-bottom: 18px;"><span class="lang-en" lang="en">Bookkeeping · Payroll · VAT &amp; year-end</span><span class="lang-cs" lang="cs">Vedení účetnictví · Mzdy · DPH a uzávěrky</span></p>
+        <a href="mailto:maxkostenko18@gmail.com?subject=Accounting%20%2F%20Tukaly" class="btn-white" style="max-width: 300px; margin: 0 auto;"><span class="lang-en" lang="en">Email us</span><span class="lang-cs" lang="cs">Napište nám</span></a>
+        <p class="form-note"><a href="mailto:maxkostenko18@gmail.com" style="color: rgba(255,255,255,0.6); text-decoration: underline;">maxkostenko18@gmail.com</a> · <span class="lang-en" lang="en">we reply within 24 hours</span><span class="lang-cs" lang="cs">odpovídáme do 24 hodin</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a href="#hero" class="footer-logo">MK Solution</a>
+      <div class="footer-links">
+        <a href="#about"><span class="lang-en" lang="en">About</span><span class="lang-cs" lang="cs">Co to je</span></a>
+        <a href="#how-we-work"><span class="lang-en" lang="en">How it works</span><span class="lang-cs" lang="cs">Jak to funguje</span></a>
+        <a href="#why"><span class="lang-en" lang="en">Why it pays off</span><span class="lang-cs" lang="cs">Proč to dává smysl</span></a>
+        <a href="#cta"><span class="lang-en" lang="en">Contact</span><span class="lang-cs" lang="cs">Kontakt</span></a>
+        <a href="/">mk4ai.com</a>
+      </div>
+      <p class="footer-copy">© 2026 MK Solution</p>
+    </div>
+    <p class="footer-legal"><span class="lang-en" lang="en">Tukaly — invoice intake for ABRA Flexi. Bookkeeping, payroll and tax work for Czech businesses.</span><span class="lang-cs" lang="cs">Tukaly — příjem faktur do ABRA Flexi. Účetnictví, mzdy a daně pro české firmy.</span></p>
+    <p class="footer-legal" style="margin-top: 8px;">MK Solution is operated by DMK corporate s.r.o. &nbsp;·&nbsp; Mezilehlá 326/1, Hrdlořezy, 190 00 Praha 9 &nbsp;·&nbsp; IČO: 11782510</p>
+  </footer>
+
+  <script>
+// ── LANGUAGE ──
+// Both languages are already in the document; switching is a CSS class on
+// <html> plus the metadata a crawler or reader would expect.
+const META = {
+  en: {
+    title: 'Tukaly — photo of an invoice, booked in ABRA Flexi | MK Solution',
+    desc: 'Send a photo of an invoice to a Telegram bot — it is read, checked and booked into ABRA Flexi, then reviewed by our accountant and filed with your tax declaration. Simple, fast, reliable, cheap. Only for our clients, only in ABRA Flexi.',
+  },
+  cs: {
+    title: 'Tukaly — fotka faktury, zaúčtovaná v ABRA Flexi | MK Solution',
+    desc: 'Pošlete fotku faktury do Telegram bota — přečteme ji, zkontrolujeme a zaúčtujeme do ABRA Flexi, naše účetní ji přezkoumá a podá se daňové přiznání. Jednoduché, rychlé, spolehlivé, levné. Jen pro naše klienty, jen v ABRA Flexi.',
+  },
+};
+
+let motionReady = false;
+
+function setLang(lang) {
+  if (lang !== 'en' && lang !== 'cs') return;
+  document.documentElement.setAttribute('data-lang', lang);
+  document.documentElement.lang = lang;
+  document.title = META[lang].title;
+  const desc = document.querySelector('meta[name="description"]');
+  if (desc) desc.setAttribute('content', META[lang].desc);
+  document.querySelectorAll('.lang-switch button').forEach(btn => {
+    btn.setAttribute('aria-pressed', String(btn.dataset.setLang === lang));
+  });
+  try { localStorage.setItem('tukaly_lang', lang); } catch (e) {}
+
+  // Headings are line-split for the visible language only, so the swap has to
+  // re-measure the ones that just appeared.
+  if (motionReady && typeof splitHeadings === 'function') splitHeadings();
+  if (window.ScrollTrigger) ScrollTrigger.refresh();
+
+  // Anything rendered and already on screen but still waiting for its reveal
+  // (it was display:none when the observer looked) is shown straight away.
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => {
+      if (!el.getClientRects().length) return;
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-visible');
+    });
+  });
+}
+
+document.querySelectorAll('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.setLang));
+});
+
+// The head script may already have chosen Czech; reflect it in the switch.
+(function () {
+  const current = document.documentElement.getAttribute('data-lang') || 'en';
+  document.querySelectorAll('.lang-switch button').forEach(btn => {
+    btn.setAttribute('aria-pressed', String(btn.dataset.setLang === current));
+  });
+})();
+
+// ── Mobile nav ──
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+const setNav = open => {
+  navLinks.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', String(open));
+};
+hamburger.addEventListener('click', () => setNav(!navLinks.classList.contains('open')));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNav(false)));
+
+// Nav: solid background + shadow once the page scrolls
+(function () {
+  const nav = document.querySelector('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+// ── MOTION SYSTEM ──
+// The homepage's own stack: GSAP + ScrollTrigger + SplitText + Lenis drive the
+// entrances when the deferred CDN bundles are available. They load after this
+// inline script, so the choice is made on DOMContentLoaded. If any of them is
+// missing — blocked CDN, offline, old browser — initRevealFallback() runs the
+// IntersectionObserver reveals instead, and nothing stays hidden.
+const CARD_SELECTOR =
+  '.service-card, .process-step, .principle-card, .diff-card, .insight-item';
+const FADE_SELECTOR =
+  '.eyebrow, .section-desc, .roi-band, .ctx-band, .insight-quote';
+
+let headingSplits = [];
+
+// Split only the headings of the language currently on screen: SplitText
+// cannot measure a display:none element, and the Czech copy is invisible
+// until the switch. Reverting and re-splitting keeps both in step.
+function splitHeadings() {
+  headingSplits.forEach(entry => {
+    if (entry.tween) {
+      if (entry.tween.scrollTrigger) entry.tween.scrollTrigger.kill();
+      entry.tween.kill();
+    }
+    try { entry.split.revert(); } catch (e) {}
+  });
+  headingSplits = [];
+
+  gsap.utils.toArray('h2').forEach(h => {
+    if (!h.getClientRects().length) return;
+    const split = new SplitText(h, { type: 'lines', mask: 'lines', linesClass: 'split-line' });
+    const tween = gsap.from(split.lines, {
+      yPercent: 115,
+      duration: 0.9,
+      ease: 'power3.out',
+      stagger: 0.09,
+      scrollTrigger: { trigger: h, start: 'top 85%', once: true },
+    });
+    headingSplits.push({ split, tween });
+  });
+  ScrollTrigger.refresh();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;
+  if (window.gsap && window.ScrollTrigger) initMotion();
+  else initRevealFallback();
+});
+
+function initMotion() {
+  gsap.registerPlugin(ScrollTrigger);
+  const hasSplit = typeof SplitText !== 'undefined';
+  if (hasSplit) gsap.registerPlugin(SplitText);
+  document.documentElement.classList.add('gsap-on');
+  motionReady = true;
+
+  // Lenis smooth scroll, driven off GSAP's ticker so scrubbed timelines
+  // stay in sync with the eased scroll position rather than the raw one.
+  if (window.Lenis) {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+      smoothWheel: true,
+    });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+    document.documentElement.style.scrollBehavior = 'auto';
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        lenis.scrollTo(target, { offset: -(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'), 10) || 52) - 16 });
+      });
+    });
+  }
+
+  // split-lines — each headline line rises out from behind its own mask.
+  // Deferred until fonts settle, since line breaks depend on the real face.
+  if (hasSplit) {
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(splitHeadings);
+    else splitHeadings();
+  } else {
+    fadeUp(gsap.utils.toArray('h2'));
+  }
+
+  // fade-up — eyebrows, section intros and the standalone bands.
+  gsap.utils.toArray(FADE_SELECTOR).forEach(el => fadeUp([el]));
+
+  // clip-reveal — cards wipe in from the left, staggered per grid.
+  const groups = new Map();
+  gsap.utils.toArray(CARD_SELECTOR).forEach(el => {
+    const parent = el.parentElement;
+    if (!groups.has(parent)) groups.set(parent, []);
+    groups.get(parent).push(el);
+  });
+  groups.forEach((els, parent) => {
+    // fromTo, not from: clip-path resolves to `none` on these cards, which
+    // GSAP cannot interpolate towards. clearProps drops the inline transform
+    // afterwards so the CSS hover lift still works.
+    gsap.fromTo(els,
+      { opacity: 0, x: -28, clipPath: 'inset(0 100% 0 0)' },
+      {
+        opacity: 1,
+        x: 0,
+        clipPath: 'inset(0 0% 0 0)',
+        duration: 0.85,
+        ease: 'power3.out',
+        stagger: 0.08,
+        clearProps: 'clipPath,transform,opacity',
+        scrollTrigger: { trigger: parent, start: 'top 85%', once: true },
+      }
+    );
+  });
+
+  // scroll-fade — hero copy drifts up and dissolves as you scroll past it.
+  // fromTo with explicit start values: a plain `to` would read whatever the
+  // CSS entrance animation happens to show at creation time (opacity 0 while
+  // the rise is still running) and freeze that in as the tween's start,
+  // leaving the hero blank once the entrance finishes. `top top` puts
+  // progress at exactly 0 while the hero sits at the top of the page.
+  const heroBits = gsap.utils.toArray('#hero > *');
+  heroBits.forEach(el => el.addEventListener('animationend', () => {
+    el.style.animation = 'none';
+  }, { once: true }));
+  if (heroBits.length) {
+    gsap.fromTo(heroBits,
+      { y: 0, opacity: 1 },
+      {
+        y: -60,
+        opacity: 0,
+        ease: 'none',
+        stagger: 0.02,
+        scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true },
+      }
+    );
+  }
+
+  // scroll-parallax — the insight band's content trails the page slightly.
+  const insight = document.querySelector('#insight .insight-inner');
+  if (insight) {
+    gsap.fromTo(insight, { y: 40 }, {
+      y: -40,
+      ease: 'none',
+      scrollTrigger: { trigger: '#insight', start: 'top bottom', end: 'bottom top', scrub: true },
+    });
+  }
+
+  function fadeUp(els) {
+    els.forEach(el => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 28,
+        duration: 0.8,
+        ease: 'power3.out',
+        clearProps: 'transform,opacity',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      });
+    });
+  }
+}
+
+// Scroll fade-in — only hides content once we know we can reveal it again.
+// Siblings that reveal together get an increasing delay, so grids cascade in.
+// The same observer keeps watching the hidden language, so a switch reveals it
+// the moment it appears.
+function initRevealFallback() {
+  const targets = document.querySelectorAll(
+    CARD_SELECTOR + ', ' + FADE_SELECTOR + ', h2, .stat-num, .stat-label'
+  );
+  if (!('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  targets.forEach(el => {
+    el.classList.add('reveal');
+    const revealSiblings = Array.prototype.filter.call(
+      el.parentElement.children, c => c.classList.contains('reveal')
+    );
+    const i = revealSiblings.indexOf(el);
+    if (i > 0) el.style.setProperty('--reveal-delay', Math.min(i * 0.08, 0.4).toFixed(2) + 's');
+    observer.observe(el);
+  });
+}
+
+  </script>
+</body>
+</html>
